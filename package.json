@@ -1,0 +1,8 @@
+{
+  "name": "kunnash",
+  "version": "3.0.0",
+  "private": true,
+  "description": "A free, ad-free monthly budget notebook with cloud save.",
+  "type": "module",
+  "engines": { "node": ">=18" }
+}
