@@ -16,11 +16,11 @@
 <title>Kunnash</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Figtree:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Figtree:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap">
 <style>
 /* Layout: a phone-first money app. Neon purple light on deep black glass.
    Phone: top bar, views, glass tab bar with a glowing add button.
-   Desktop: the same views beside a left rail. */
+   Desktop: the same views beside a left rail. Arabic flips to right-to-left. */
 :root {
   --bg: #05040a;
   --glass: rgba(24, 16, 40, 0.58);
@@ -48,10 +48,13 @@
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { background: var(--bg); }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-text); font-size: 16px; line-height: 1.45; font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; min-height: 100dvh; overflow-x: hidden; }
+html[lang="ar"] body { font-family: var(--f-ar), var(--f-text); }
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3 { font-family: var(--f-ar), var(--f-display); letter-spacing: 0; }
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; background: none; border: 0; padding: 0; }
+a { color: inherit; }
 :focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; border-radius: 10px; }
-h1, h2, h3 { margin: 0; font-family: var(--f-display); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; text-wrap: balance; }
+h1, h2, h3 { margin: 0; font-family: var(--f-display); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; text-wrap: balance; }
 p { margin: 0; }
 .muted { color: var(--muted); }
 svg.i { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -83,6 +86,7 @@ svg.i { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor;
 .monthpill { display: flex; align-items: center; gap: 2px; background: var(--glass); border: 1px solid var(--edge); border-radius: 999px; padding: 4px; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
 .monthpill button { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--muted); }
 .monthpill button:hover { background: var(--glass-3); color: var(--ink); }
+[dir="rtl"] .monthpill button svg { transform: scaleX(-1); }
 .monthpill span { min-width: 7.6em; text-align: center; font-weight: 700; font-size: 15px; }
 .sync { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); padding: 7px 11px; border-radius: 999px; background: var(--glass); border: 1px solid var(--edge); white-space: nowrap; }
 .sync i { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); }
@@ -95,7 +99,7 @@ svg.i { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor;
 .card { background: var(--glass); border: 1px solid var(--edge); border-radius: var(--r); padding: 20px; -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%); min-width: 0; }
 .cardhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
 .cardhead h2 { font-size: 17px; }
-.link { color: var(--neon); font-weight: 700; font-size: 14px; padding: 6px 2px; }
+.link { color: var(--neon); font-weight: 700; font-size: 14px; padding: 6px 2px; text-decoration: none; }
 .link:hover { color: var(--ink); }
 .view { display: grid; gap: 16px; padding-top: 4px; }
 .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
@@ -103,9 +107,9 @@ svg.i { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor;
 
 /* Hero */
 .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 28px; align-items: center; padding: 26px; }
-.hero::before { content: ""; position: absolute; width: 340px; height: 340px; left: -60px; top: -40px; background: radial-gradient(circle, rgba(180, 92, 255, 0.35), transparent 65%); pointer-events: none; }
-@media (max-width: 720px) { .hero { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; padding: 22px 16px; gap: 18px; } .hero::before { left: 50%; transform: translateX(-50%); } }
-.ring { position: relative; width: 236px; height: 236px; max-width: 100%; }
+.hero::before { content: ""; position: absolute; width: 340px; height: 340px; inset-inline-start: -60px; top: -40px; background: radial-gradient(circle, rgba(180, 92, 255, 0.35), transparent 65%); pointer-events: none; }
+@media (max-width: 720px) { .hero { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; padding: 22px 16px; gap: 18px; } .hero::before { inset-inline-start: 50%; transform: translateX(-50%); } }
+.ring { position: relative; width: 236px; height: 236px; max-width: 100%; direction: ltr; }
 .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
 .ring .track { stroke: rgba(255, 255, 255, 0.07); }
 .ring .prog { filter: drop-shadow(0 0 10px rgba(200, 90, 255, 0.85)); transition: stroke-dashoffset 1.1s var(--ease); }
@@ -116,7 +120,7 @@ svg.i { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor;
 .herobody { display: grid; gap: 16px; min-width: 0; width: 100%; position: relative; }
 .herobody h1 { font-size: clamp(22px, 3vw, 30px); }
 .chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.chip { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 18px; background: var(--glass-2); text-align: left; min-width: 0; }
+.chip { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 18px; background: var(--glass-2); text-align: start; min-width: 0; }
 .chip .ic { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; flex: none; }
 .chip .ic svg { width: 19px; height: 19px; }
 .chip div { display: grid; min-width: 0; }
@@ -125,11 +129,11 @@ svg.i { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor;
 @media (max-width: 380px) { .chip { padding: 10px; gap: 9px; } .chip .ic { width: 32px; height: 32px; } .chip strong { font-size: 15px; } }
 
 /* Salary */
-.salary { display: grid; gap: 12px; padding: 16px; border-radius: 20px; text-align: left; background: linear-gradient(135deg, rgba(180, 92, 255, 0.22), rgba(255, 61, 242, 0.12)); border: 1px solid rgba(220, 140, 255, 0.4); box-shadow: 0 0 30px -12px var(--neon) inset; }
+.salary { display: grid; gap: 12px; padding: 16px; border-radius: 20px; text-align: start; background: linear-gradient(135deg, rgba(180, 92, 255, 0.22), rgba(255, 61, 242, 0.12)); border: 1px solid rgba(220, 140, 255, 0.4); box-shadow: 0 0 30px -12px var(--neon) inset; }
 .salary p { font-weight: 700; display: flex; gap: 8px; align-items: center; }
 .salary form { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto; gap: 8px; }
 @media (max-width: 520px) { .salary form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .salary form .btn { grid-column: 1 / -1; } }
-.salarydone { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border-radius: 16px; background: rgba(77, 255, 181, 0.08); border: 1px solid rgba(77, 255, 181, 0.25); font-weight: 600; font-size: 14.5px; text-align: left; }
+.salarydone { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border-radius: 16px; background: rgba(77, 255, 181, 0.08); border: 1px solid rgba(77, 255, 181, 0.25); font-weight: 600; font-size: 14.5px; text-align: start; }
 .salarydone span { display: flex; align-items: center; gap: 8px; color: var(--good); }
 .salarydone button { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 
@@ -137,20 +141,24 @@ svg.i { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor;
 .in { width: 100%; min-width: 0; padding: 12px 14px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.35); color: var(--ink); font-size: 16px; }
 .in::placeholder { color: var(--dim); }
 .in:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 3px rgba(180, 92, 255, 0.25); }
-select.in { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a69bc6' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+select.in { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a69bc6' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-inline-end: 36px; }
+[dir="rtl"] select.in { background-position: left 14px center; }
 .lab { font-size: 13px; color: var(--muted); font-weight: 600; display: block; margin-bottom: 6px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; border-radius: 14px; font-weight: 700; background: linear-gradient(135deg, var(--neon), #8d3bff); color: #fff; box-shadow: 0 8px 26px -8px rgba(180, 92, 255, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.25); transition: transform 0.15s var(--ease), box-shadow 0.2s var(--ease), filter 0.2s; white-space: nowrap; }
+.hint { font-size: 12.5px; color: var(--dim); margin-top: 6px; display: block; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; border-radius: 14px; font-weight: 700; background: linear-gradient(135deg, var(--neon), #8d3bff); color: #fff; box-shadow: 0 8px 26px -8px rgba(180, 92, 255, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.25); transition: transform 0.15s var(--ease), box-shadow 0.2s var(--ease), filter 0.2s; white-space: nowrap; text-decoration: none; }
 .btn:hover { filter: brightness(1.12); box-shadow: 0 10px 34px -6px rgba(200, 100, 255, 1), inset 0 1px 0 rgba(255, 255, 255, 0.25); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; filter: none; }
 .btn:active, .ghost:active, .tabbar button:active, .tile:active, .row:active { transform: scale(0.97); }
 .btn.big { width: 100%; padding: 16px; font-size: 17px; border-radius: 18px; }
-.ghost { display: inline-flex; align-items: center; gap: 8px; padding: 11px 15px; border-radius: 14px; background: var(--glass-2); border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; transition: transform 0.15s var(--ease), background 0.2s; }
+.ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 15px; border-radius: 14px; background: var(--glass-2); border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; transition: transform 0.15s var(--ease), background 0.2s; text-decoration: none; }
 .ghost:hover { background: var(--glass-3); }
 .ghost svg { width: 18px; height: 18px; }
 .ghost.danger { color: var(--bad); border-color: rgba(255, 77, 125, 0.3); }
+.textbtn { color: var(--neon); font-weight: 700; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
 
 /* Category tiles */
 .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.tile { display: grid; gap: 10px; padding: 14px; border-radius: 18px; background: var(--glass-2); text-align: left; transition: transform 0.15s var(--ease), background 0.2s; min-width: 0; }
+.tile { display: grid; gap: 10px; padding: 14px; border-radius: 18px; background: var(--glass-2); text-align: start; transition: transform 0.15s var(--ease), background 0.2s; min-width: 0; }
 .tile:hover { background: var(--glass-3); }
 .tile .top2 { display: flex; justify-content: space-between; align-items: center; }
 .tile .nm { font-weight: 700; font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -164,12 +172,12 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
 
 /* Rows */
 .list { display: grid; gap: 4px; }
-.row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 10px; border-radius: 16px; width: 100%; text-align: left; transition: background 0.2s, transform 0.15s var(--ease); }
+.row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 10px; border-radius: 16px; width: 100%; text-align: start; transition: background 0.2s, transform 0.15s var(--ease); }
 .row:hover { background: var(--glass-2); }
 .row .t { display: grid; min-width: 0; }
 .row .t b { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .row .t small { color: var(--muted); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.row .v { font-family: var(--f-display); font-weight: 700; font-size: 15px; letter-spacing: -0.02em; white-space: nowrap; }
+.row .v { font-family: var(--f-display); font-weight: 700; font-size: 15px; letter-spacing: -0.02em; white-space: nowrap; direction: ltr; }
 .row .v.pos { color: var(--good); text-shadow: 0 0 14px rgba(77, 255, 181, 0.5); }
 .row.fresh { animation: pop 0.7s var(--ease); }
 @keyframes pop { 0% { background: rgba(180, 92, 255, 0.35); transform: scale(0.98); } 100% { background: transparent; transform: none; } }
@@ -177,11 +185,12 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
 .empty { display: grid; justify-items: center; gap: 10px; padding: 28px 12px; text-align: center; color: var(--muted); }
 .empty .icotile { width: 56px; height: 56px; border-radius: 18px; background: rgba(180, 92, 255, 0.14); color: var(--neon); box-shadow: 0 0 30px -8px var(--neon); }
 .empty strong { color: var(--ink); font-family: var(--f-display); font-size: 17px; }
+html[lang="ar"] .empty strong { font-family: var(--f-ar); }
 
 /* Ledger tools */
 .searchbox { position: relative; }
-.searchbox svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); width: 18px; height: 18px; }
-.searchbox .in { padding-left: 42px; border-radius: 999px; }
+.searchbox svg { position: absolute; inset-inline-start: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); width: 18px; height: 18px; }
+.searchbox .in { padding-inline-start: 42px; border-radius: 999px; }
 .filters { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 6px; scrollbar-width: none; }
 .filters::-webkit-scrollbar { display: none; }
 .fchip { display: inline-flex; align-items: center; gap: 7px; padding: 8px 13px; border-radius: 999px; background: var(--glass-2); border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; font-size: 14px; white-space: nowrap; }
@@ -189,10 +198,10 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
 .fchip[aria-pressed="true"] { background: rgba(180, 92, 255, 0.22); border-color: var(--neon); box-shadow: 0 0 18px -6px var(--neon); }
 
 /* Charts */
-.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; direction: ltr; }
 .chart text { fill: var(--muted); font-size: 12px; font-family: var(--f-text); }
 .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); margin-top: 12px; }
-.legend i { display: inline-block; width: 12px; height: 4px; border-radius: 4px; margin-right: 6px; vertical-align: middle; }
+.legend i { display: inline-block; width: 12px; height: 4px; border-radius: 4px; margin-inline-end: 6px; vertical-align: middle; }
 .donutwrap { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 20px; align-items: center; }
 @media (max-width: 520px) { .donutwrap { grid-template-columns: minmax(0, 1fr); justify-items: center; } }
 .donut { position: relative; width: 190px; height: 190px; }
@@ -201,13 +210,13 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
 .donut small { color: var(--muted); font-size: 12.5px; font-weight: 600; }
 .donut b { font-family: var(--f-display); font-size: 20px; }
 .clist { display: grid; gap: 4px; width: 100%; min-width: 0; }
-.crow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px; border-radius: 14px; text-align: left; width: 100%; }
+.crow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px; border-radius: 14px; text-align: start; width: 100%; }
 .crow:hover { background: var(--glass-2); }
 .crow .icotile { width: 34px; height: 34px; border-radius: 11px; }
 .crow .icotile svg { width: 17px; height: 17px; }
 .crow .nm { display: grid; gap: 5px; min-width: 0; }
 .crow .nm b { font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.crow .val { font-size: 13px; color: var(--muted); text-align: right; white-space: nowrap; }
+.crow .val { font-size: 13px; color: var(--muted); text-align: end; white-space: nowrap; }
 .crow .val b { color: var(--ink); font-weight: 700; }
 .crow .val b.over { color: var(--bad); }
 .hist { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; align-items: end; }
@@ -230,7 +239,7 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
 .catrow .rm { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: var(--dim); }
 .catrow .rm svg { width: 18px; height: 18px; }
 .catrow .rm:hover { color: var(--bad); background: rgba(255, 77, 125, 0.1); }
-.catrow .in[type="number"] { text-align: right; }
+.catrow .in[type="number"] { text-align: end; }
 @media (max-width: 400px) { .catrow { grid-template-columns: 42px minmax(0, 1fr) 84px 34px; gap: 6px; } .catrow .icobtn { width: 42px; height: 42px; } }
 .icons { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px; border-radius: 16px; background: rgba(0, 0, 0, 0.3); }
 .icons button { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: var(--muted); }
@@ -243,6 +252,16 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
 .steps li { list-style: none; display: flex; gap: 12px; align-items: center; }
 .steps li::before { counter-increment: s; content: counter(s); flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: rgba(180, 92, 255, 0.2); color: var(--ink); font-weight: 800; font-size: 13px; }
 .err { color: var(--bad); font-weight: 600; font-size: 14px; }
+.ok { color: var(--good); font-weight: 600; font-size: 14px; }
+.langs { display: inline-flex; gap: 4px; padding: 4px; border-radius: 14px; background: rgba(0, 0, 0, 0.35); }
+.langs button { padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 14px; color: var(--muted); }
+.langs button[aria-pressed="true"] { background: var(--glass-3); color: var(--ink); }
+.subform { display: grid; gap: 10px; padding: 14px; border-radius: 18px; background: rgba(0, 0, 0, 0.25); }
+.support { position: relative; overflow: hidden; display: grid; gap: 12px; background: linear-gradient(135deg, rgba(180, 92, 255, 0.2), rgba(61, 245, 255, 0.08)); border-color: rgba(220, 140, 255, 0.35); }
+.support .heart { width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; background: rgba(255, 61, 242, 0.18); color: var(--neon-2); box-shadow: 0 0 26px -6px var(--neon-2); }
+.support .row1 { display: flex; gap: 14px; align-items: center; }
+.footnote { display: flex; justify-content: center; gap: 8px; align-items: center; flex-wrap: wrap; padding: 6px 0 2px; font-size: 13.5px; color: var(--muted); text-align: center; }
+.footnote svg { width: 16px; height: 16px; color: var(--neon-2); }
 
 /* Tab bar (phone) */
 .tabbar { position: fixed; z-index: 10; left: 12px; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); margin-inline: auto; max-width: 480px; height: var(--tab); display: grid; grid-template-columns: repeat(5, 1fr); align-items: center; padding: 0 6px; border-radius: 26px; background: rgba(16, 10, 28, 0.78); border: 1px solid var(--edge); -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%); box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8); }
@@ -256,15 +275,18 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
 .rail { display: none; }
 @media (min-width: 1000px) {
   .tabbar { display: none; }
-  .app { margin-left: var(--rail); padding-bottom: 40px; }
-  .rail { display: flex; flex-direction: column; gap: 6px; position: fixed; left: 0; top: 0; bottom: 0; width: var(--rail); padding: 22px 16px; background: rgba(12, 8, 22, 0.6); border-right: 1px solid var(--edge); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); z-index: 6; }
+  .app { margin-inline-start: var(--rail); padding-bottom: 40px; }
+  .rail { display: flex; flex-direction: column; gap: 6px; position: fixed; inset-inline-start: 0; top: 0; bottom: 0; width: var(--rail); padding: 22px 16px; background: rgba(12, 8, 22, 0.6); border-inline-end: 1px solid var(--edge); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); z-index: 6; }
   .rail .logo { margin: 0 8px 22px; }
   .rail .nav { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; font-weight: 600; color: var(--muted); }
   .rail .nav:hover { background: var(--glass-2); color: var(--ink); }
   .rail .nav[aria-current="page"] { background: rgba(180, 92, 255, 0.16); color: var(--ink); box-shadow: inset 3px 0 0 var(--neon); }
+  [dir="rtl"] .rail .nav[aria-current="page"] { box-shadow: inset -3px 0 0 var(--neon); }
   .rail .nav[aria-current="page"] svg { color: var(--neon); }
   .rail .btn { margin-top: 14px; }
   .rail .spacer { flex: 1; }
+  .rail .railnote { font-size: 13px; padding: 0 8px; color: var(--muted); }
+  .rail .raildonate { margin: 0 8px; }
   .top .toplogo { visibility: hidden; }
 }
 
@@ -282,7 +304,7 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
 .seg button svg { width: 18px; height: 18px; }
 .seg button[aria-pressed="true"] { background: linear-gradient(135deg, var(--neon), #8d3bff); color: #fff; box-shadow: 0 6px 20px -8px var(--neon); }
 .seg button.inc[aria-pressed="true"] { background: linear-gradient(135deg, #1fd796, #0fae8f); box-shadow: 0 6px 20px -8px var(--good); }
-.amountbox { display: flex; align-items: baseline; justify-content: center; gap: 10px; padding: 10px 0 4px; }
+.amountbox { display: flex; align-items: baseline; justify-content: center; gap: 10px; padding: 10px 0 4px; direction: ltr; }
 .amountbox input { width: 2ch; max-width: 78%; min-width: 0; border: 0; background: none; text-align: center; font-family: var(--f-display); font-weight: 800; font-size: 46px; letter-spacing: -0.03em; color: var(--ink); padding: 0; }
 .amountbox input::placeholder { color: var(--dim); }
 .amountbox input:focus { outline: none; }
@@ -297,28 +319,46 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
 .catpick .icotile { width: 38px; height: 38px; }
 .sheet .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .sheetbtns { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+
+/* Welcome / sign-in */
+.gate { position: fixed; inset: 0; z-index: 40; overflow-y: auto; background: rgba(5, 4, 10, 0.72); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); padding-top: calc(env(safe-area-inset-top, 0px) + 24px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+.gatein { max-width: 980px; min-height: 100%; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 36px; align-items: center; }
+@media (max-width: 860px) { .gatein { grid-template-columns: minmax(0, 1fr); gap: 22px; align-items: start; } }
+.pitch { display: grid; gap: 20px; }
+.pitch .mkbig { width: 64px; height: 64px; border-radius: 20px; background: linear-gradient(135deg, var(--neon), var(--neon-2)); display: grid; place-items: center; font-family: var(--f-display); font-weight: 800; font-size: 30px; color: #12051f; box-shadow: 0 0 50px -6px var(--neon); }
+.pitch h1 { font-size: clamp(34px, 5vw, 54px); line-height: 1.02; letter-spacing: -0.035em; }
+.pitch h1 em { font-style: normal; font-family: var(--f-ar); color: var(--neon); font-size: 0.62em; margin-inline-start: 0.2em; }
+.pitch p.tag { font-size: 18px; color: var(--muted); max-width: 30ch; }
+.pitch ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.pitch li { display: flex; gap: 12px; align-items: center; font-weight: 600; }
+.pitch li span.icotile { width: 36px; height: 36px; border-radius: 12px; background: rgba(180, 92, 255, 0.16); color: var(--neon); }
+.pitch li span.icotile svg { width: 18px; height: 18px; }
+@media (max-width: 860px) { .pitch { gap: 14px; } .pitch .mkbig { width: 52px; height: 52px; font-size: 24px; } .pitch p.tag { font-size: 16px; } .pitch ul { gap: 8px; } }
+.authcard { display: grid; gap: 16px; padding: 24px; }
+.authcard form { display: grid; gap: 14px; }
+.authcard .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); box-shadow: none; }
+.authfoot { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; }
+.codebox { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 16px 18px; border-radius: 18px; background: rgba(0, 0, 0, 0.45); border: 1px dashed rgba(220, 140, 255, 0.55); }
+.codebox code { font-family: var(--f-display); font-weight: 700; font-size: clamp(17px, 4.6vw, 22px); letter-spacing: 0.04em; color: var(--ink); direction: ltr; overflow-wrap: anywhere; }
+.check { display: flex; gap: 10px; align-items: center; font-weight: 600; }
+.check input { width: 20px; height: 20px; accent-color: var(--neon); }
+
 @media (prefers-reduced-motion: no-preference) {
   .sheetwrap:not([hidden]) .sheet { animation: up 0.42s var(--ease); }
   .sheetwrap:not([hidden]) .scrim { animation: fade 0.3s ease-out; }
   .view.enter > * { animation: rise 0.5s var(--ease) both; }
   .view.enter > *:nth-child(2) { animation-delay: 0.06s; } .view.enter > *:nth-child(3) { animation-delay: 0.12s; } .view.enter > *:nth-child(4) { animation-delay: 0.18s; }
+  .gate:not([hidden]) .gatein > * { animation: rise 0.6s var(--ease) both; }
+  .gate:not([hidden]) .gatein > *:nth-child(2) { animation-delay: 0.08s; }
 }
 @keyframes up { from { transform: translateY(60px); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
-/* Lock */
-.lock { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 24px; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); background: rgba(5, 4, 10, 0.86); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); }
-.lockcard { width: 100%; max-width: 380px; display: grid; gap: 16px; text-align: center; justify-items: center; }
-.lockcard .mk { width: 72px; height: 72px; border-radius: 22px; background: linear-gradient(135deg, var(--neon), var(--neon-2)); display: grid; place-items: center; color: #12051f; box-shadow: 0 0 50px -6px var(--neon); }
-.lockcard .mk svg { width: 32px; height: 32px; stroke-width: 2.4; }
-.lockcard h1 { font-size: 24px; }
-.lockcard form { display: grid; gap: 10px; width: 100%; }
-.lockcard .in { text-align: center; font-size: 20px; letter-spacing: 0.2em; padding: 15px; }
-
-.toast { position: fixed; z-index: 50; left: 50%; transform: translateX(-50%); bottom: calc(var(--tab) + 26px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 8px; align-items: center; padding: 12px 18px; border-radius: 16px; background: #f6f2ff; color: #12051f; font-weight: 700; box-shadow: 0 10px 40px -6px rgba(180, 92, 255, 0.8); white-space: nowrap; }
+.toast { position: fixed; z-index: 50; left: 50%; transform: translateX(-50%); bottom: calc(var(--tab) + 26px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 8px; align-items: center; padding: 12px 18px; border-radius: 16px; background: #f6f2ff; color: #12051f; font-weight: 700; box-shadow: 0 10px 40px -6px rgba(180, 92, 255, 0.8); white-space: nowrap; max-width: calc(100vw - 32px); }
+.toast span { overflow: hidden; text-overflow: ellipsis; }
 .toast svg { width: 18px; height: 18px; }
-@media (min-width: 1000px) { .toast { bottom: 28px; left: calc(50% + var(--rail) / 2); } }
+@media (min-width: 1000px) { .toast { bottom: 28px; left: calc(50% + var(--rail) / 2); } [dir="rtl"] .toast { left: calc(50% - var(--rail) / 2); } }
 </style>
 <style>[hidden]{display:none!important} img{max-width:100%}</style>
 </head>
@@ -331,9 +371,10 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
   <button class="nav" data-go="stats" type="button"></button>
   <button class="nav" data-go="ledger" type="button"></button>
   <button class="nav" data-go="settings" type="button"></button>
-  <button class="btn" type="button" data-add>Add money</button>
+  <button class="btn" type="button" data-add></button>
   <div class="spacer"></div>
-  <p class="muted" style="font-size:13px;padding:0 8px">Free, no ads. Your notebook, your numbers.</p>
+  <a class="ghost raildonate" id="railDonate" target="_blank" rel="noopener" hidden></a>
+  <p class="railnote" data-i18n="railNote">Free, no ads. Your notebook, your numbers.</p>
 </aside>
 
 <div class="app">
@@ -341,9 +382,9 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
     <div class="wrap">
       <div class="logo toplogo"><div class="mk">K</div><b>Kunnash</b><span lang="ar">كناش</span></div>
       <div class="monthpill">
-        <button type="button" id="prev" aria-label="Previous month"></button>
+        <button type="button" id="prev" data-i18n-aria="prevMonth" aria-label="Previous month"></button>
         <span id="monthName">October 2026</span>
-        <button type="button" id="next" aria-label="Next month"></button>
+        <button type="button" id="next" data-i18n-aria="nextMonth" aria-label="Next month"></button>
       </div>
       <div class="sync" id="sync" role="status"><i></i><span>Loading</span></div>
     </div>
@@ -360,66 +401,79 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
         </div>
       </div>
       <div class="card" id="installCard" hidden>
-        <div class="cardhead"><h2>Put Kunnash on your iPhone</h2><button class="link" type="button" id="installHide">Hide</button></div>
+        <div class="cardhead"><h2 data-i18n="installTitle">Put Kunnash on your iPhone</h2><button class="link" type="button" id="installHide" data-i18n="hide">Hide</button></div>
         <ol class="steps">
-          <li>Open this page in Safari.</li>
-          <li id="shareStep">Tap the Share button.</li>
-          <li>Choose Add to Home Screen, then Add.</li>
+          <li data-i18n="install1">Open this page in Safari.</li>
+          <li id="shareStep"></li>
+          <li data-i18n="install3">Choose Add to Home Screen, then Add.</li>
         </ol>
       </div>
       <div class="cols">
-        <div class="card"><div class="cardhead"><h2>Where it went</h2><button class="link" type="button" data-go="stats">Stats</button></div><div class="tiles" id="tiles"></div></div>
-        <div class="card"><div class="cardhead"><h2>Recent</h2><button class="link" type="button" data-go="ledger">See all</button></div><div class="list" id="recent"></div></div>
+        <div class="card"><div class="cardhead"><h2 data-i18n="whereWent">Where it went</h2><button class="link" type="button" data-go="stats" data-i18n="statsLink">Stats</button></div><div class="tiles" id="tiles"></div></div>
+        <div class="card"><div class="cardhead"><h2 data-i18n="recent">Recent</h2><button class="link" type="button" data-go="ledger" data-i18n="seeAll">See all</button></div><div class="list" id="recent"></div></div>
       </div>
+      <p class="footnote" id="homeDonate" hidden></p>
     </section>
 
     <section class="view" data-view="stats" aria-label="Stats" hidden>
-      <div class="card chart"><div class="cardhead"><h2>Spending this month</h2></div><div id="curve"></div>
-        <div class="legend"><span><i style="background:var(--neon)"></i>Spent so far</span><span><i style="background:var(--muted)"></i>Even pace to budget</span><span><i style="background:var(--good)"></i>Salary</span></div></div>
+      <div class="card chart"><div class="cardhead"><h2 data-i18n="spendingMonth">Spending this month</h2></div><div id="curve"></div>
+        <div class="legend"><span><i style="background:var(--neon)"></i><span data-i18n="spentSoFar">Spent so far</span></span><span><i style="background:var(--muted)"></i><span data-i18n="evenPace">Even pace to budget</span></span><span><i style="background:var(--good)"></i><span data-i18n="salary">Salary</span></span></div></div>
       <div class="cols">
-        <div class="card"><div class="cardhead"><h2>By category</h2></div><div class="donutwrap"><div class="donut" id="donut"></div><div class="clist" id="clist"></div></div></div>
-        <div class="card"><div class="cardhead"><h2>Last six months</h2></div><div class="hist" id="hist"></div>
-          <div class="legend"><span><i style="background:var(--good)"></i>Money in</span><span><i style="background:var(--neon-2)"></i>Money out</span><span>The number is what you kept</span></div></div>
+        <div class="card"><div class="cardhead"><h2 data-i18n="byCategory">By category</h2></div><div class="donutwrap"><div class="donut" id="donut"></div><div class="clist" id="clist"></div></div></div>
+        <div class="card"><div class="cardhead"><h2 data-i18n="sixMonths">Last six months</h2></div><div class="hist" id="hist"></div>
+          <div class="legend"><span><i style="background:var(--good)"></i><span data-i18n="moneyIn">Money in</span></span><span><i style="background:var(--neon-2)"></i><span data-i18n="moneyOut">Money out</span></span><span data-i18n="keptNumber">The number is what you kept</span></div></div>
       </div>
     </section>
 
     <section class="view" data-view="ledger" aria-label="All entries" hidden>
       <div class="card" style="display:grid;gap:12px">
-        <div class="searchbox"><span id="searchIco"></span><input class="in" type="search" id="search" placeholder="Search notes and categories" aria-label="Search entries"></div>
+        <div class="searchbox"><span id="searchIco"></span><input class="in" type="search" id="search" data-i18n-ph="searchPh" placeholder="Search notes and categories" data-i18n-aria="searchPh" aria-label="Search entries"></div>
         <div class="filters" id="filters"></div>
         <div class="list" id="ledger"></div>
       </div>
     </section>
 
     <section class="view" data-view="settings" aria-label="Settings" hidden>
-      <div class="card set" id="syncCard"></div>
-      <div class="card set">
-        <h2 style="font-size:17px">Salary</h2>
-        <div class="two">
-          <div><label class="lab" for="sSalary">Usual monthly salary</label><input class="in" id="sSalary" inputmode="decimal" placeholder="0"></div>
-          <div><label class="lab" for="sCur">Currency</label><input class="in" id="sCur" list="curList" maxlength="3" autocomplete="off" style="text-transform:uppercase"></div>
-          <div><label class="lab" for="sPay">Payday</label><select class="in" id="sPay"></select></div>
-          <div><label class="lab" for="sFor">Salary pays for</label><select class="in" id="sFor"><option value="same">The month it arrives</option><option value="next">The next month</option></select></div>
-        </div>
-        <datalist id="curList"><option value="MAD"><option value="EUR"><option value="USD"><option value="GBP"><option value="CAD"><option value="AED"><option value="SAR"><option value="TND"><option value="DZD"><option value="CHF"></datalist>
+      <div class="card set" id="accountCard"></div>
+      <div class="card set" id="legacyCard" hidden>
+        <h2 style="font-size:17px" data-i18n="legacyTitle">Bring over your old notebook</h2>
+        <p class="note" data-i18n="legacyText">Type the passcode you used before to move those entries into this account.</p>
+        <form class="subform" id="legacyForm" novalidate>
+          <input class="in" id="legacyPass" type="password" autocomplete="off" data-i18n-ph="legacyPh" placeholder="Old passcode">
+          <p class="err" id="legacyErr" hidden></p>
+          <button class="btn" type="submit" data-i18n="legacyBtn">Move them here</button>
+        </form>
       </div>
       <div class="card set">
-        <div class="cardhead" style="margin:0"><h2 style="font-size:17px">Categories and budgets</h2><button class="ghost" type="button" id="addCat">Add</button></div>
+        <h2 style="font-size:17px" data-i18n="salary">Salary</h2>
+        <div class="two">
+          <div><label class="lab" for="sSalary" data-i18n="usualSalary">Usual monthly salary</label><input class="in" id="sSalary" inputmode="decimal" placeholder="0"></div>
+          <div><label class="lab" for="sCur" data-i18n="currency">Currency</label><input class="in" id="sCur" list="curList" maxlength="3" autocomplete="off" style="text-transform:uppercase"></div>
+          <div><label class="lab" for="sPay" data-i18n="payday">Payday</label><select class="in" id="sPay"></select></div>
+          <div><label class="lab" for="sFor" data-i18n="salaryFor">Salary pays for</label><select class="in" id="sFor"><option value="same" data-i18n="forSame">The month it arrives</option><option value="next" data-i18n="forNext">The next month</option></select></div>
+        </div>
+        <datalist id="curList"><option value="MAD"><option value="EUR"><option value="USD"><option value="GBP"><option value="CAD"><option value="AED"><option value="SAR"><option value="TND"><option value="DZD"><option value="CHF"></datalist>
+        <div><span class="lab" data-i18n="language">Language</span><div class="langs" id="langSet"></div></div>
+      </div>
+      <div class="card set">
+        <div class="cardhead" style="margin:0"><h2 style="font-size:17px" data-i18n="catsTitle">Categories and budgets</h2><button class="ghost" type="button" id="addCat" data-i18n="add">Add</button></div>
         <div class="set" id="catEdit" style="gap:8px"></div>
         <div class="icons" id="iconPick" hidden></div>
         <p class="note" id="setNote"></p>
         <p class="err" id="sErr" hidden></p>
-        <button class="btn big" type="button" id="saveSet">Save changes</button>
+        <button class="btn big" type="button" id="saveSet" data-i18n="saveChanges">Save changes</button>
       </div>
+      <div class="card set support" id="supportCard" hidden></div>
       <div class="card set">
-        <h2 style="font-size:17px">Your data</h2>
+        <h2 style="font-size:17px" data-i18n="yourData">Your data</h2>
         <p class="note" id="dataNote"></p>
         <div class="actions">
-          <button class="ghost" type="button" id="expCsv">Download CSV</button>
-          <button class="ghost" type="button" id="expJson">Download backup</button>
-          <label class="ghost filepick">Restore backup<input type="file" id="impJson" accept="application/json,.json"></label>
-          <button class="ghost danger" type="button" id="wipe">Erase all entries</button>
+          <button class="ghost" type="button" id="expCsv" data-i18n="dlCsv">Download CSV</button>
+          <button class="ghost" type="button" id="expJson" data-i18n="dlBackup">Download backup</button>
+          <label class="ghost filepick"><span data-i18n="restore">Restore backup</span><input type="file" id="impJson" accept="application/json,.json"></label>
+          <button class="ghost danger" type="button" id="wipe" data-i18n="eraseAll">Erase all entries</button>
         </div>
+        <p class="note"><a class="textbtn" href="/privacy" target="_blank" rel="noopener" data-i18n="privacy">Privacy</a></p>
       </div>
     </section>
   </main>
@@ -428,7 +482,7 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
 <nav class="tabbar" aria-label="Main">
   <button type="button" data-go="home"></button>
   <button type="button" data-go="stats"></button>
-  <button type="button" class="fab" data-add aria-label="Add money"></button>
+  <button type="button" class="fab" data-add data-i18n-aria="addMoney" aria-label="Add money"></button>
   <button type="button" data-go="ledger"></button>
   <button type="button" data-go="settings"></button>
 </nav>
@@ -437,40 +491,44 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
   <div class="scrim" id="scrim"></div>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetH">
     <div class="grab" aria-hidden="true"></div>
-    <div class="sheethead"><h2 id="sheetH">Add money</h2><button class="xbtn" type="button" id="sheetX" aria-label="Close"></button></div>
+    <div class="sheethead"><h2 id="sheetH">Add money</h2><button class="xbtn" type="button" id="sheetX" data-i18n-aria="close" aria-label="Close"></button></div>
     <form id="form" novalidate style="display:grid;gap:16px">
-      <div class="seg" role="group" aria-label="Type">
+      <div class="seg" role="group">
         <button type="button" id="kExp" aria-pressed="true"></button>
         <button type="button" id="kInc" class="inc" aria-pressed="false"></button>
       </div>
       <div>
-        <div class="amountbox"><input id="fAmount" inputmode="decimal" autocomplete="off" placeholder="0" aria-label="Amount"><span id="fCur">MAD</span></div>
+        <div class="amountbox"><input id="fAmount" inputmode="decimal" autocomplete="off" placeholder="0" data-i18n-aria="amount" aria-label="Amount"><span id="fCur">MAD</span></div>
         <p class="preview" id="preview" aria-live="polite"></p>
       </div>
-      <div id="catWrap"><span class="lab">Category</span><div class="catpick" id="catPick"></div></div>
+      <div id="catWrap"><span class="lab" data-i18n="category">Category</span><div class="catpick" id="catPick"></div></div>
       <div class="two">
-        <div><label class="lab" for="fDate">Date</label><input class="in" id="fDate" type="date"></div>
-        <div><label class="lab" for="fNote">Note</label><input class="in" id="fNote" maxlength="80" placeholder="Marjane, taxi"></div>
+        <div><label class="lab" for="fDate" data-i18n="date">Date</label><input class="in" id="fDate" type="date"></div>
+        <div><label class="lab" for="fNote" data-i18n="note">Note</label><input class="in" id="fNote" maxlength="80"></div>
       </div>
       <p class="err" id="fErr" hidden></p>
       <div class="sheetbtns">
         <button class="btn big" type="submit" id="fGo">Add expense</button>
-        <button class="ghost danger" type="button" id="fDel" hidden style="border-radius:18px;padding-inline:18px">Delete</button>
+        <button class="ghost danger" type="button" id="fDel" hidden style="border-radius:18px;padding-inline:18px"></button>
       </div>
     </form>
   </div>
 </div>
 
-<div class="lock" id="lock" hidden>
-  <div class="lockcard">
-    <div class="mk" id="lockIco"></div>
-    <h1>Unlock your notebook</h1>
-    <p class="muted">Type the passcode you set in Vercel. You only do this once on each device.</p>
-    <form id="lockForm" novalidate>
-      <input class="in" id="lockIn" type="password" autocomplete="current-password" placeholder="Passcode" aria-label="Passcode">
-      <p class="err" id="lockErr" hidden></p>
-      <button class="btn big" type="submit">Unlock</button>
-    </form>
+<div class="gate" id="gate" hidden>
+  <div class="gatein">
+    <div class="pitch">
+      <div class="mkbig">K</div>
+      <h1>Kunnash<em lang="ar">كناش</em></h1>
+      <p class="tag" data-i18n="tagline">Your salary and expenses in one neon notebook.</p>
+      <ul>
+        <li><span class="icotile" data-ico="spark"></span><span data-i18n="pitch1">Free for everyone, no ads</span></li>
+        <li><span class="icotile" data-ico="lock"></span><span data-i18n="pitch2">No email or phone number needed</span></li>
+        <li><span class="icotile" data-ico="cloud"></span><span data-i18n="pitch3">Your numbers stay private, on all your devices</span></li>
+      </ul>
+      <div class="langs" id="langGate"></div>
+    </div>
+    <div class="card authcard" id="authCard"></div>
   </div>
 </div>
 <div class="toast" id="toast" hidden></div>
@@ -480,6 +538,132 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
   "use strict";
   const $ = (id) => document.getElementById(id);
   const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+  // ---------- words ----------
+  const I18N = {
+    en: {
+      home: "Home", stats: "Stats", ledger: "Entries", settings: "Settings", addMoney: "Add money",
+      railNote: "Free, no ads. Your notebook, your numbers.", prevMonth: "Previous month", nextMonth: "Next month",
+      syncLoading: "Loading", synced: "Synced", saving: "Saving", offline: "Offline, will sync", thisDevice: "This device", claudeAcct: "Claude account", signedOut: "Signed out", setupNeeded: "Setup needed",
+      heroNow: "{m} so far", heroPast: "{m}, closed", heroFuture: "{m} ahead",
+      leftToSpend: "Left to spend", overSalary: "Over your salary by", spentSoFar: "Spent so far", pctUsed: "{p}% of money in used", ofBudget: "of {x} budget",
+      moneyIn: "Money in", spent: "Spent", perDay: "Per day left", entries: "Entries", kept: "Kept",
+      payday: "Payday", logSalary: "Payday? Log your {m} salary", salaryAmount: "Salary amount", paidOn: "Paid on", addSalary: "Add salary", salaryIn: "Salary {x} is in", edit: "Edit",
+      typeSalary: "Type your salary first", salaryAdded: "Salary added", oneSec: "One second, still loading.",
+      installTitle: "Put Kunnash on your iPhone", hide: "Hide", install1: "Open this page in Safari.", install2: "Tap the Share button {i} in Safari's toolbar.", install3: "Choose Add to Home Screen, then Add.",
+      whereWent: "Where it went", statsLink: "Stats", recent: "Recent", seeAll: "See all",
+      cleanPage: "A clean page", cleanText: "Tap the + button to log your first expense.", opening: "Opening your notebook", openingText: "Your entries will show up here.",
+      over: "Over", noLimit: "no limit", of: "of {x}",
+      spendingMonth: "Spending this month", evenPace: "Even pace to budget", salary: "Salary", byCategory: "By category", sixMonths: "Last six months", moneyOut: "Money out", keptNumber: "The number is what you kept",
+      searchPh: "Search notes and categories", all: "All", income: "Income", today: "Today", nothing: "Nothing matches", nothingText: "Try another word or pick All.", noEntries: "No entries in {m}", noEntriesText: "Tap the + button to add one.",
+      usualSalary: "Usual monthly salary", currency: "Currency", lastDay: "Last day of the month", dayN: "Day {n}", salaryFor: "Salary pays for", forSame: "The month it arrives", forNext: "The next month", language: "Language",
+      catsTitle: "Categories and budgets", add: "Add", budgetsTotal: "Budgets add up to {x}", budgetsOver: ", {x} more than your salary.", budgetsLeave: ", which leaves {x} to save.", tapIcon: "Tap an icon to change it and its color.",
+      saveChanges: "Save changes", settingsSaved: "Settings saved", badCurrency: "Use a 3-letter currency code like MAD, EUR or USD.", keepOne: "Keep at least one category.", newCategory: "New category", untitled: "Untitled", changeIcon: "Change icon and color", removeCat: "Remove category", catName: "Name", catBudget: "Monthly budget",
+      yourData: "Your data", dlCsv: "Download CSV", dlBackup: "Download backup", restore: "Restore backup", eraseAll: "Erase all entries", eraseAgain: "Tap again to erase {n}", downloaded: "Downloaded", noDownload: "Download isn't available here", notBackup: "That isn't a Kunnash backup", restored: "Restored {n} entries", restoreFail: "Restore stopped partway. Try again.", erased: "Everything erased", eraseFail: "Couldn't erase. Try again.",
+      dataCloud: "Your notebook is saved to your account. A backup file is a good extra copy.", dataLocal: "Entries stay in this browser. Download a backup now and then.",
+      privacy: "Privacy", account: "Account", signedInAs: "Signed in as @{n}", acctText: "Your notebook is saved to your account, so it's the same on every device you log in from. It also works offline.",
+      localTitle: "Saved on this device only", localText: "Create a free account to keep your notebook safe and use it on your other devices.", createAcct: "Create an account", logIn: "Log in",
+      claudeTitle: "Saved to your Claude account", claudeText: "This preview saves to your Claude account. Your public site keeps its own notebooks.",
+      noStorage: "The site has no storage yet, so entries stay on this device.",
+      changePw: "Change password", currentPw: "Current password", newPw: "New password", updatePw: "Update password", pwChanged: "Password changed", logOut: "Log out", deleteAcct: "Delete my account", deleteText: "This deletes your account and every entry for good. Type your password to confirm.", deleteForever: "Delete forever", deleted: "Account deleted", syncNow: "Sync now",
+      legacyTitle: "Bring over your old notebook", legacyText: "Type the passcode you used before to move those entries into this account.", legacyPh: "Old passcode", legacyBtn: "Move them here", legacyDone: "Moved {n} entries", legacyWrong: "That passcode isn't right.",
+      supportTitle: "Keep Kunnash free", supportText: "Kunnash is free for everyone, with no ads. If it helps you, you can chip in to cover the hosting. It's completely optional.", supportBtn: "Support Kunnash", usedBy: "Used by {n} people", homeDonate: "Kunnash is free and ad-free.", homeDonateLink: "Help keep it running",
+      category: "Category", date: "Date", note: "Note", amount: "Amount", close: "Close", expense: "Expense", incomeK: "Income", goingOut: "Money going out", comingIn: "Money coming in",
+      wouldHave: "You'd have {x} left in {m}", spendingBecomes: "{m} spending becomes {x}", notePhOut: "Marjane, taxi", notePhIn: "Salary, freelance, gift",
+      addExpense: "Add expense", addIncome: "Add income", editExpense: "Edit expense", editIncome: "Edit income", del: "Delete", tapAgain: "Tap again",
+      errAmount: "Type an amount above zero, like 45 or 12.50.", errDate: "Pick a date.", errCat: "Pick a category.", saved: "Saved", deletedT: "Deleted", saveFail: "Couldn't save. Try again.", deleteFail: "Couldn't delete. Try again.",
+      tagline: "Your salary and expenses in one neon notebook.", pitch1: "Free for everyone, no ads", pitch2: "No email or phone number needed", pitch3: "Your numbers stay private, on all your devices",
+      signUp: "Create account", username: "Username", usernameHint: "3 to 24 letters (a to z), numbers, dots or underscores", password: "Password", passwordHint: "At least 8 characters",
+      createNotebook: "Create my notebook", forgot: "Forgot your password?", resetTitle: "Reset your password", recoveryCode: "Recovery code", resetBtn: "Reset and log in", back: "Back", deviceOnly: "Use it on this device only",
+      e_bad_username: "Usernames use 3 to 24 letters (a to z), numbers, dots or underscores.", e_weak_password: "Use at least 8 characters.", e_taken: "That username is taken. Try another.", e_wrong_login: "Username or password isn't right.", e_wrong_code: "That recovery code doesn't match.", e_too_many: "Too many tries. Wait a few minutes and try again.", e_network: "Can't reach Kunnash. Check your connection.", e_wrong_password: "That password isn't right.", e_generic: "Something went wrong. Try again.",
+      saveCodeTitle: "Save your recovery code", saveCodeText: "There's no email on your account, so this code is the only way back in if you forget your password. Take a screenshot or write it down somewhere safe.", newCodeTitle: "Your new recovery code", newCodeText: "Your old code no longer works. Save this one somewhere safe.", copy: "Copy", copied: "Copied", savedIt: "I saved it somewhere safe", openNotebook: "Open my notebook",
+      welcomeBack: "Welcome back, @{n}", welcome: "Welcome, @{n}", loggedOut: "Logged out",
+      cats: ["Rent & home", "Groceries", "Transport", "Bills & phone", "Eating out", "Health", "Shopping", "Other"]
+    },
+    fr: {
+      home: "Accueil", stats: "Stats", ledger: "Opérations", settings: "Réglages", addMoney: "Ajouter",
+      railNote: "Gratuit, sans pub. Ton carnet, tes chiffres.", prevMonth: "Mois précédent", nextMonth: "Mois suivant",
+      syncLoading: "Chargement", synced: "Synchronisé", saving: "Enregistrement", offline: "Hors ligne, synchro plus tard", thisDevice: "Cet appareil", claudeAcct: "Compte Claude", signedOut: "Déconnecté", setupNeeded: "Configuration requise",
+      heroNow: "{m} jusqu'ici", heroPast: "{m}, terminé", heroFuture: "{m} à venir",
+      leftToSpend: "Reste à dépenser", overSalary: "Dépassement du salaire", spentSoFar: "Dépensé jusqu'ici", pctUsed: "{p}% des entrées utilisées", ofBudget: "sur un budget de {x}",
+      moneyIn: "Entrées", spent: "Dépenses", perDay: "Par jour restant", entries: "Opérations", kept: "Épargné",
+      payday: "Jour de paie", logSalary: "Jour de paie ? Note ton salaire de {m}", salaryAmount: "Montant du salaire", paidOn: "Reçu le", addSalary: "Ajouter le salaire", salaryIn: "Salaire de {x} reçu", edit: "Modifier",
+      typeSalary: "Indique d'abord ton salaire", salaryAdded: "Salaire ajouté", oneSec: "Une seconde, chargement en cours.",
+      installTitle: "Installe Kunnash sur ton iPhone", hide: "Masquer", install1: "Ouvre cette page dans Safari.", install2: "Touche le bouton Partager {i} dans la barre de Safari.", install3: "Choisis « Sur l'écran d'accueil », puis Ajouter.",
+      whereWent: "Où est passé l'argent", statsLink: "Stats", recent: "Récent", seeAll: "Tout voir",
+      cleanPage: "Page blanche", cleanText: "Touche + pour noter ta première dépense.", opening: "Ouverture du carnet", openingText: "Tes opérations apparaîtront ici.",
+      over: "Dépassé", noLimit: "sans limite", of: "sur {x}",
+      spendingMonth: "Dépenses du mois", evenPace: "Rythme régulier du budget", salary: "Salaire", byCategory: "Par catégorie", sixMonths: "Six derniers mois", moneyOut: "Sorties", keptNumber: "Le chiffre = ce que tu as gardé",
+      searchPh: "Rechercher notes et catégories", all: "Tout", income: "Revenus", today: "Aujourd'hui", nothing: "Aucun résultat", nothingText: "Essaie un autre mot ou choisis Tout.", noEntries: "Aucune opération en {m}", noEntriesText: "Touche + pour en ajouter une.",
+      usualSalary: "Salaire mensuel habituel", currency: "Devise", lastDay: "Dernier jour du mois", dayN: "Jour {n}", salaryFor: "Le salaire couvre", forSame: "Le mois où il arrive", forNext: "Le mois suivant", language: "Langue",
+      catsTitle: "Catégories et budgets", add: "Ajouter", budgetsTotal: "Les budgets totalisent {x}", budgetsOver: ", soit {x} de plus que ton salaire.", budgetsLeave: ", il reste {x} à épargner.", tapIcon: "Touche une icône pour changer l'icône et la couleur.",
+      saveChanges: "Enregistrer", settingsSaved: "Réglages enregistrés", badCurrency: "Utilise un code devise à 3 lettres : MAD, EUR, USD…", keepOne: "Garde au moins une catégorie.", newCategory: "Nouvelle catégorie", untitled: "Sans nom", changeIcon: "Changer l'icône et la couleur", removeCat: "Supprimer la catégorie", catName: "Nom", catBudget: "Budget mensuel",
+      yourData: "Tes données", dlCsv: "Télécharger CSV", dlBackup: "Télécharger une sauvegarde", restore: "Restaurer une sauvegarde", eraseAll: "Tout effacer", eraseAgain: "Touche encore pour effacer {n}", downloaded: "Téléchargé", noDownload: "Téléchargement indisponible ici", notBackup: "Ce fichier n'est pas une sauvegarde Kunnash", restored: "{n} opérations restaurées", restoreFail: "Restauration interrompue. Réessaie.", erased: "Tout est effacé", eraseFail: "Échec de l'effacement. Réessaie.",
+      dataCloud: "Ton carnet est enregistré dans ton compte. Une sauvegarde en fichier reste une bonne copie en plus.", dataLocal: "Tes opérations restent dans ce navigateur. Télécharge une sauvegarde de temps en temps.",
+      privacy: "Confidentialité", account: "Compte", signedInAs: "Connecté en tant que @{n}", acctText: "Ton carnet est enregistré dans ton compte : il est identique sur chaque appareil où tu te connectes. Il marche aussi hors ligne.",
+      localTitle: "Enregistré sur cet appareil seulement", localText: "Crée un compte gratuit pour protéger ton carnet et l'utiliser sur tes autres appareils.", createAcct: "Créer un compte", logIn: "Se connecter",
+      claudeTitle: "Enregistré dans ton compte Claude", claudeText: "Cet aperçu enregistre dans ton compte Claude. Le site public garde ses propres carnets.",
+      noStorage: "Le site n'a pas encore de stockage : tes opérations restent sur cet appareil.",
+      changePw: "Changer le mot de passe", currentPw: "Mot de passe actuel", newPw: "Nouveau mot de passe", updatePw: "Mettre à jour", pwChanged: "Mot de passe changé", logOut: "Se déconnecter", deleteAcct: "Supprimer mon compte", deleteText: "Ceci supprime définitivement ton compte et toutes tes opérations. Tape ton mot de passe pour confirmer.", deleteForever: "Supprimer définitivement", deleted: "Compte supprimé", syncNow: "Synchroniser",
+      legacyTitle: "Récupère ton ancien carnet", legacyText: "Tape l'ancien code d'accès pour transférer ces opérations dans ce compte.", legacyPh: "Ancien code", legacyBtn: "Transférer", legacyDone: "{n} opérations transférées", legacyWrong: "Ce code n'est pas bon.",
+      supportTitle: "Garde Kunnash gratuit", supportText: "Kunnash est gratuit pour tout le monde, sans pub. S'il t'aide, tu peux participer aux frais d'hébergement. C'est totalement facultatif.", supportBtn: "Soutenir Kunnash", usedBy: "Utilisé par {n} personnes", homeDonate: "Kunnash est gratuit et sans pub.", homeDonateLink: "Aide à le faire tourner",
+      category: "Catégorie", date: "Date", note: "Note", amount: "Montant", close: "Fermer", expense: "Dépense", incomeK: "Revenu", goingOut: "Argent qui sort", comingIn: "Argent qui entre",
+      wouldHave: "Il te resterait {x} en {m}", spendingBecomes: "Les dépenses de {m} passent à {x}", notePhOut: "Marjane, taxi", notePhIn: "Salaire, freelance, cadeau",
+      addExpense: "Ajouter la dépense", addIncome: "Ajouter le revenu", editExpense: "Modifier la dépense", editIncome: "Modifier le revenu", del: "Supprimer", tapAgain: "Encore une fois",
+      errAmount: "Indique un montant supérieur à zéro, comme 45 ou 12,50.", errDate: "Choisis une date.", errCat: "Choisis une catégorie.", saved: "Enregistré", deletedT: "Supprimé", saveFail: "Échec de l'enregistrement. Réessaie.", deleteFail: "Échec de la suppression. Réessaie.",
+      tagline: "Ton salaire et tes dépenses dans un carnet néon.", pitch1: "Gratuit pour tous, sans pub", pitch2: "Pas besoin d'e-mail ni de téléphone", pitch3: "Tes chiffres restent privés, sur tous tes appareils",
+      signUp: "Créer un compte", username: "Nom d'utilisateur", usernameHint: "3 à 24 lettres (a à z), chiffres, points ou tirets bas", password: "Mot de passe", passwordHint: "Au moins 8 caractères",
+      createNotebook: "Créer mon carnet", forgot: "Mot de passe oublié ?", resetTitle: "Réinitialiser le mot de passe", recoveryCode: "Code de secours", resetBtn: "Réinitialiser et se connecter", back: "Retour", deviceOnly: "Utiliser sur cet appareil seulement",
+      e_bad_username: "Le nom utilise 3 à 24 lettres (a à z), chiffres, points ou tirets bas.", e_weak_password: "Utilise au moins 8 caractères.", e_taken: "Ce nom est déjà pris. Essaie un autre.", e_wrong_login: "Nom ou mot de passe incorrect.", e_wrong_code: "Ce code de secours ne correspond pas.", e_too_many: "Trop d'essais. Attends quelques minutes puis réessaie.", e_network: "Impossible de joindre Kunnash. Vérifie ta connexion.", e_wrong_password: "Mot de passe incorrect.", e_generic: "Un problème est survenu. Réessaie.",
+      saveCodeTitle: "Garde ton code de secours", saveCodeText: "Ton compte n'a pas d'e-mail : ce code est le seul moyen de revenir si tu oublies ton mot de passe. Fais une capture d'écran ou note-le en lieu sûr.", newCodeTitle: "Ton nouveau code de secours", newCodeText: "L'ancien code ne marche plus. Garde celui-ci en lieu sûr.", copy: "Copier", copied: "Copié", savedIt: "Je l'ai gardé en lieu sûr", openNotebook: "Ouvrir mon carnet",
+      welcomeBack: "Content de te revoir, @{n}", welcome: "Bienvenue, @{n}", loggedOut: "Déconnecté",
+      cats: ["Loyer & maison", "Courses", "Transport", "Factures & téléphone", "Restos & cafés", "Santé", "Shopping", "Autre"]
+    },
+    ar: {
+      home: "الرئيسية", stats: "إحصائيات", ledger: "العمليات", settings: "الإعدادات", addMoney: "إضافة",
+      railNote: "مجاني وبدون إعلانات. كناشك، أرقامك.", prevMonth: "الشهر السابق", nextMonth: "الشهر التالي",
+      syncLoading: "جارٍ التحميل", synced: "متزامن", saving: "جارٍ الحفظ", offline: "غير متصل، ستتم المزامنة لاحقاً", thisDevice: "هذا الجهاز", claudeAcct: "حساب Claude", signedOut: "غير مسجل", setupNeeded: "يلزم الإعداد",
+      heroNow: "{m} حتى الآن", heroPast: "{m}، انتهى", heroFuture: "{m} القادم",
+      leftToSpend: "المتبقي للإنفاق", overSalary: "تجاوزت راتبك بـ", spentSoFar: "المصروف حتى الآن", pctUsed: "استُعمل {p}% من المداخيل", ofBudget: "من ميزانية {x}",
+      moneyIn: "المداخيل", spent: "المصاريف", perDay: "لكل يوم متبقٍ", entries: "العمليات", kept: "المدخر",
+      payday: "يوم الخلاص", logSalary: "نهار الخلاص؟ سجّل راتب {m}", salaryAmount: "مبلغ الراتب", paidOn: "تاريخ الاستلام", addSalary: "إضافة الراتب", salaryIn: "تم تسجيل راتب {x}", edit: "تعديل",
+      typeSalary: "اكتب راتبك أولاً", salaryAdded: "تمت إضافة الراتب", oneSec: "لحظة، جارٍ التحميل.",
+      installTitle: "ثبّت كناش على آيفونك", hide: "إخفاء", install1: "افتح هذه الصفحة في Safari.", install2: "اضغط على زر المشاركة {i} في شريط Safari.", install3: "اختر «إضافة إلى الشاشة الرئيسية» ثم «إضافة».",
+      whereWent: "فين مشات الفلوس", statsLink: "إحصائيات", recent: "الأحدث", seeAll: "عرض الكل",
+      cleanPage: "صفحة بيضاء", cleanText: "اضغط على + لتسجيل أول مصروف.", opening: "جارٍ فتح الكناش", openingText: "ستظهر عملياتك هنا.",
+      over: "تجاوز", noLimit: "بلا حد", of: "من {x}",
+      spendingMonth: "مصاريف هذا الشهر", evenPace: "وتيرة منتظمة للميزانية", salary: "الراتب", byCategory: "حسب الفئة", sixMonths: "آخر ستة أشهر", moneyOut: "المصاريف", keptNumber: "الرقم هو ما ادخرته",
+      searchPh: "ابحث في الملاحظات والفئات", all: "الكل", income: "مداخيل", today: "اليوم", nothing: "لا نتائج", nothingText: "جرّب كلمة أخرى أو اختر الكل.", noEntries: "لا عمليات في {m}", noEntriesText: "اضغط على + لإضافة واحدة.",
+      usualSalary: "الراتب الشهري المعتاد", currency: "العملة", lastDay: "آخر يوم في الشهر", dayN: "اليوم {n}", salaryFor: "الراتب يغطي", forSame: "الشهر الذي يصل فيه", forNext: "الشهر الموالي", language: "اللغة",
+      catsTitle: "الفئات والميزانيات", add: "إضافة", budgetsTotal: "مجموع الميزانيات {x}", budgetsOver: "، أي {x} أكثر من راتبك.", budgetsLeave: "، ويبقى {x} للادخار.", tapIcon: "اضغط على أيقونة لتغييرها ولونها.",
+      saveChanges: "حفظ التغييرات", settingsSaved: "تم حفظ الإعدادات", badCurrency: "استعمل رمز عملة من 3 أحرف مثل MAD أو EUR أو USD.", keepOne: "احتفظ بفئة واحدة على الأقل.", newCategory: "فئة جديدة", untitled: "بدون اسم", changeIcon: "تغيير الأيقونة واللون", removeCat: "حذف الفئة", catName: "الاسم", catBudget: "الميزانية الشهرية",
+      yourData: "بياناتك", dlCsv: "تنزيل CSV", dlBackup: "تنزيل نسخة احتياطية", restore: "استرجاع نسخة احتياطية", eraseAll: "مسح كل العمليات", eraseAgain: "اضغط مجدداً لمسح {n}", downloaded: "تم التنزيل", noDownload: "التنزيل غير متاح هنا", notBackup: "هذا الملف ليس نسخة كناش", restored: "تم استرجاع {n} عملية", restoreFail: "توقف الاسترجاع. حاول مجدداً.", erased: "تم مسح كل شيء", eraseFail: "تعذر المسح. حاول مجدداً.",
+      dataCloud: "كناشك محفوظ في حسابك. النسخة الاحتياطية في ملف تبقى نسخة إضافية جيدة.", dataLocal: "عملياتك تبقى في هذا المتصفح. نزّل نسخة احتياطية من حين لآخر.",
+      privacy: "الخصوصية", account: "الحساب", signedInAs: "مسجل باسم @{n}", acctText: "كناشك محفوظ في حسابك، فيظهر نفسه على كل جهاز تسجل منه. ويعمل أيضاً بدون إنترنت.",
+      localTitle: "محفوظ على هذا الجهاز فقط", localText: "أنشئ حساباً مجانياً لحماية كناشك واستعماله على أجهزتك الأخرى.", createAcct: "إنشاء حساب", logIn: "تسجيل الدخول",
+      claudeTitle: "محفوظ في حساب Claude", claudeText: "هذه المعاينة تحفظ في حساب Claude. الموقع العام يحتفظ بكنانيشه الخاصة.",
+      noStorage: "الموقع بدون تخزين حالياً، لذا تبقى عملياتك على هذا الجهاز.",
+      changePw: "تغيير كلمة المرور", currentPw: "كلمة المرور الحالية", newPw: "كلمة المرور الجديدة", updatePw: "تحديث", pwChanged: "تم تغيير كلمة المرور", logOut: "تسجيل الخروج", deleteAcct: "حذف حسابي", deleteText: "سيُحذف حسابك وكل عملياتك نهائياً. اكتب كلمة المرور للتأكيد.", deleteForever: "حذف نهائي", deleted: "تم حذف الحساب", syncNow: "مزامنة الآن",
+      legacyTitle: "استرجع كناشك القديم", legacyText: "اكتب رمز الدخول القديم لنقل تلك العمليات إلى هذا الحساب.", legacyPh: "الرمز القديم", legacyBtn: "انقلها هنا", legacyDone: "تم نقل {n} عملية", legacyWrong: "هذا الرمز غير صحيح.",
+      supportTitle: "ساهم في بقاء كناش مجانياً", supportText: "كناش مجاني للجميع وبدون إعلانات. إذا كان مفيداً لك، يمكنك المساهمة في تكاليف الاستضافة. المساهمة اختيارية تماماً.", supportBtn: "ادعم كناش", usedBy: "يستعمله {n} شخص", homeDonate: "كناش مجاني وبدون إعلانات.", homeDonateLink: "ساعد في استمراره",
+      category: "الفئة", date: "التاريخ", note: "ملاحظة", amount: "المبلغ", close: "إغلاق", expense: "مصروف", incomeK: "مدخول", goingOut: "فلوس خارجة", comingIn: "فلوس داخلة",
+      wouldHave: "سيتبقى لك {x} في {m}", spendingBecomes: "ستصبح مصاريف {m} {x}", notePhOut: "مرجان، طاكسي", notePhIn: "راتب، عمل حر، هدية",
+      addExpense: "إضافة المصروف", addIncome: "إضافة المدخول", editExpense: "تعديل المصروف", editIncome: "تعديل المدخول", del: "حذف", tapAgain: "اضغط مجدداً",
+      errAmount: "اكتب مبلغاً أكبر من صفر، مثل 45 أو 12.50.", errDate: "اختر تاريخاً.", errCat: "اختر فئة.", saved: "تم الحفظ", deletedT: "تم الحذف", saveFail: "تعذر الحفظ. حاول مجدداً.", deleteFail: "تعذر الحذف. حاول مجدداً.",
+      tagline: "راتبك ومصاريفك في كناش واحد.", pitch1: "مجاني للجميع وبدون إعلانات", pitch2: "لا حاجة لبريد إلكتروني أو رقم هاتف", pitch3: "أرقامك تبقى خاصة بك، على كل أجهزتك",
+      signUp: "إنشاء حساب", username: "اسم المستخدم", usernameHint: "من 3 إلى 24 حرفاً لاتينياً (a إلى z) أو أرقاماً أو نقطة أو _", password: "كلمة المرور", passwordHint: "8 أحرف على الأقل",
+      createNotebook: "أنشئ كناشي", forgot: "نسيت كلمة المرور؟", resetTitle: "إعادة تعيين كلمة المرور", recoveryCode: "رمز الاسترجاع", resetBtn: "إعادة التعيين والدخول", back: "رجوع", deviceOnly: "استعمله على هذا الجهاز فقط",
+      e_bad_username: "اسم المستخدم من 3 إلى 24 حرفاً لاتينياً أو أرقاماً أو نقطة أو _.", e_weak_password: "استعمل 8 أحرف على الأقل.", e_taken: "هذا الاسم مستعمل. جرّب اسماً آخر.", e_wrong_login: "اسم المستخدم أو كلمة المرور غير صحيحة.", e_wrong_code: "رمز الاسترجاع غير مطابق.", e_too_many: "محاولات كثيرة. انتظر بضع دقائق ثم حاول.", e_network: "تعذر الاتصال بكناش. تحقق من اتصالك.", e_wrong_password: "كلمة المرور غير صحيحة.", e_generic: "حدث خطأ. حاول مجدداً.",
+      saveCodeTitle: "احتفظ برمز الاسترجاع", saveCodeText: "حسابك بدون بريد إلكتروني، لذا هذا الرمز هو الطريقة الوحيدة للعودة إذا نسيت كلمة المرور. التقط صورة للشاشة أو اكتبه في مكان آمن.", newCodeTitle: "رمز الاسترجاع الجديد", newCodeText: "الرمز القديم لم يعد يعمل. احتفظ بهذا في مكان آمن.", copy: "نسخ", copied: "تم النسخ", savedIt: "احتفظت به في مكان آمن", openNotebook: "افتح كناشي",
+      welcomeBack: "مرحباً بعودتك، @{n}", welcome: "مرحباً، @{n}", loggedOut: "تم تسجيل الخروج",
+      cats: ["الكراء والسكن", "مشتريات البيت", "النقل", "الفواتير والهاتف", "المطاعم والمقاهي", "الصحة", "التسوق", "أخرى"]
+    }
+  };
+  const LOCALES = { en: "en-US", fr: "fr-FR", ar: "ar-MA" };
+  const LANG_NAMES = { en: "English", fr: "Français", ar: "العربية" };
+  let LANG = "en";
+  const t = (k, v) => { let s = (I18N[LANG] && I18N[LANG][k]) || I18N.en[k] || k; if (v) for (const n in v) s = s.split("{" + n + "}").join(v[n]); return s; };
+  const loc = () => LOCALES[LANG] || "en-US";
 
   // ---------- icons (hand-drawn 24px strokes) ----------
   const P = {
@@ -518,40 +702,69 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
     cloud: "M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 9.5a4.25 4.25 0 0 1-.5 8.5z",
     check: "M5 12.5l4.5 4.5L19 7.5",
     share: "M12 3v12M8 7l4-4 4 4M6 11H5v10h14V11h-1",
-    trash: "M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"
+    trash: "M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3",
+    user: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0",
+    copy: "M9 9h11v11H9zM5 15H4V4h11v1",
+    logout: "M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"
   };
   const ICON_CHOICES = ["home", "cart", "bus", "car", "bolt", "food", "coffee", "heart", "bag", "shirt", "phone", "wifi", "gift", "plane", "book", "game", "paw", "dots"];
   const ico = (n) => '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="' + (P[n] || P.dots) + '"/></svg>';
   const tint = (hex, a) => { const h = String(hex || "#999999").replace("#", ""); const n = parseInt(h.length === 3 ? h.split("").map((c) => c + c).join("") : h, 16) || 0; return "rgba(" + ((n >> 16) & 255) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")"; };
   const safeColor = (c) => (/^#[0-9a-fA-F]{3,8}$/.test(String(c)) ? c : "#b9aee0");
   const icoTile = (c) => { const col = safeColor(c.color); return '<span class="icotile" style="background:' + tint(col, 0.16) + ";color:" + col + ";box-shadow:0 0 18px -8px " + col + '">' + ico(c.icon || "dots") + "</span>"; };
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-  const NAV = { home: ["home", "Home"], stats: ["chart", "Stats"], ledger: ["list", "Entries"], settings: ["sliders", "Settings"] };
-  $$(".tabbar [data-go], .rail [data-go]").forEach((b) => { const k = NAV[b.dataset.go]; b.innerHTML = ico(k[0]) + "<span>" + k[1] + "</span>"; });
-  $$(".tabbar .fab").forEach((b) => (b.innerHTML = ico("plus")));
-  $$(".rail [data-add]").forEach((b) => (b.innerHTML = ico("plus") + "Add money"));
-  $("prev").innerHTML = ico("left"); $("next").innerHTML = ico("right"); $("sheetX").innerHTML = ico("x");
-  $("kExp").innerHTML = ico("up") + "Expense"; $("kInc").innerHTML = ico("down") + "Income";
-  $("searchIco").outerHTML = ico("search"); $("lockIco").innerHTML = ico("lock");
-  $("shareStep").innerHTML = "Tap the Share button " + ico("share") + " in Safari's toolbar.";
-  $("shareStep").querySelector("svg").style.cssText = "width:18px;height:18px;vertical-align:-3px;color:var(--neon);margin-inline:4px";
+  const NAV = { home: "home", stats: "chart", ledger: "list", settings: "sliders" };
+  function paintChrome() {
+    $$(".tabbar [data-go], .rail [data-go]").forEach((b) => (b.innerHTML = ico(NAV[b.dataset.go]) + "<span>" + esc(t(b.dataset.go)) + "</span>"));
+    $$(".tabbar .fab").forEach((b) => (b.innerHTML = ico("plus")));
+    $$(".rail [data-add]").forEach((b) => (b.innerHTML = ico("plus") + esc(t("addMoney"))));
+    $("prev").innerHTML = ico("left"); $("next").innerHTML = ico("right"); $("sheetX").innerHTML = ico("x");
+    $("kExp").innerHTML = ico("up") + esc(t("expense")); $("kInc").innerHTML = ico("down") + esc(t("incomeK"));
+    if ($("searchIco")) $("searchIco").outerHTML = ico("search");
+    $("shareStep").innerHTML = esc(t("install2")).replace("{i}", ico("share"));
+    const ss = $("shareStep").querySelector("svg"); if (ss) ss.style.cssText = "width:18px;height:18px;vertical-align:-3px;color:var(--neon);margin-inline:4px";
+    $$("[data-ico]").forEach((el) => (el.innerHTML = ico(el.dataset.ico)));
+    $$("[data-i18n]").forEach((el) => (el.textContent = t(el.dataset.i18n)));
+    $$("[data-i18n-ph]").forEach((el) => (el.placeholder = t(el.dataset.i18nPh)));
+    $$("[data-i18n-aria]").forEach((el) => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+    $("fDel").textContent = t("del");
+    paintLangs();
+    paintDonate();
+  }
+  function paintLangs() {
+    ["langSet", "langGate"].forEach((id) => {
+      const box = $(id); box.innerHTML = "";
+      Object.keys(I18N).forEach((l) => {
+        const b = document.createElement("button"); b.type = "button"; b.textContent = LANG_NAMES[l]; b.lang = l;
+        b.setAttribute("aria-pressed", String(l === LANG)); b.addEventListener("click", () => setLang(l));
+        box.appendChild(b);
+      });
+    });
+  }
+  function setLang(l, quiet) {
+    LANG = I18N[l] ? l : "en";
+    try { localStorage.setItem("kunnash.lang", JSON.stringify(LANG)); } catch (e) {}
+    document.documentElement.lang = LANG;
+    document.documentElement.dir = LANG === "ar" ? "rtl" : "ltr";
+    paintChrome();
+    if (!quiet) { if (!$("gate").hidden) renderGate(); setSync(store.syncCls || "", store.syncKey || "syncLoading"); fillSettings(); renderAccount(); render(); }
+  }
 
   // ---------- data ----------
-  const DEFAULTS = {
-    currency: "MAD", salary: 0, payday: "last", salaryFor: "same",
-    categories: [
-      { id: "rent", name: "Rent & home", color: "#7aa2ff", icon: "home", budget: 4000 },
-      { id: "groceries", name: "Groceries", color: "#4dffb5", icon: "cart", budget: 2000 },
-      { id: "transport", name: "Transport", color: "#ffd23f", icon: "bus", budget: 600 },
-      { id: "bills", name: "Bills & phone", color: "#3df5ff", icon: "bolt", budget: 600 },
-      { id: "eating", name: "Eating out", color: "#ff8a3d", icon: "food", budget: 600 },
-      { id: "health", name: "Health", color: "#ff4d7d", icon: "heart", budget: 300 },
-      { id: "shopping", name: "Shopping", color: "#f06bff", icon: "bag", budget: 500 },
-      { id: "other", name: "Other", color: "#b9aee0", icon: "dots", budget: 400 }
-    ]
-  };
+  const DEFAULT_CATS = [
+    { id: "rent", color: "#7aa2ff", icon: "home", budget: 4000 },
+    { id: "groceries", color: "#4dffb5", icon: "cart", budget: 2000 },
+    { id: "transport", color: "#ffd23f", icon: "bus", budget: 600 },
+    { id: "bills", color: "#3df5ff", icon: "bolt", budget: 600 },
+    { id: "eating", color: "#ff8a3d", icon: "food", budget: 600 },
+    { id: "health", color: "#ff4d7d", icon: "heart", budget: 300 },
+    { id: "shopping", color: "#f06bff", icon: "bag", budget: 500 },
+    { id: "other", color: "#b9aee0", icon: "dots", budget: 400 }
+  ];
+  const defaultCats = () => DEFAULT_CATS.map((c, i) => Object.assign({ name: t("cats")[i] }, c));
   const DEFAULT_ICON = { rent: "home", groceries: "cart", transport: "bus", bills: "bolt", eating: "food", health: "heart", shopping: "bag", other: "dots" };
-  const UNCAT = { id: "_none", name: "Uncategorized", color: "#8a80a8", icon: "dots", budget: 0 };
+  const UNCAT = { id: "_none", name: "?", color: "#8a80a8", icon: "dots", budget: 0 };
   const SWATCHES = ["#7aa2ff", "#4dffb5", "#ffd23f", "#3df5ff", "#ff8a3d", "#ff4d7d", "#f06bff", "#b9aee0", "#c7ff3d", "#ffffff"];
 
   const now = new Date();
@@ -559,26 +772,35 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
   const TODAY = now.getFullYear() + "-" + two(now.getMonth() + 1) + "-" + two(now.getDate());
   const clone = (o) => JSON.parse(JSON.stringify(o));
   function normSettings(s) {
-    const o = Object.assign(clone(DEFAULTS), s || {});
-    if (!Array.isArray(o.categories) || !o.categories.length) o.categories = clone(DEFAULTS.categories);
+    const o = Object.assign({ currency: "MAD", salary: 0, payday: "last", salaryFor: "same" }, s || {});
+    if (!Array.isArray(o.categories) || !o.categories.length) o.categories = defaultCats();
     o.categories = o.categories.map((c) => Object.assign({ icon: DEFAULT_ICON[c.id] || "dots" }, c, { color: safeColor(c.color) }));
     o.salary = Math.max(0, Number(o.salary) || 0);
     if (o.salaryFor !== "next") o.salaryFor = "same";
+    delete o.lang;
     return o;
   }
-  const state = { settings: normSettings(), entries: [], view: { y: now.getFullYear(), m: now.getMonth() }, tab: "home", kind: "expense", pickCat: null, editing: null, filterCat: null, query: "", fresh: null, loaded: false };
 
-  // ---------- storage: Claude artifact store, your Vercel server, or this device ----------
-  const CACHE = "kunnash.v3", QUEUE = "kunnash.queue", KEY = "kunnash.key", MODE = "kunnash.mode";
+  // ---------- storage: Claude artifact store, your Kunnash account, or this device ----------
   const ls = { get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }, del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
-  const store = { mode: "pending", db: null, downloads: null, queue: ls.get(QUEUE, []), key: ls.get(KEY, ""), status: "", busy: false, timer: null, setup: "" };
+  const LOCAL = "kunnash.local", SESSION = "kunnash.session", CHOICE = "kunnash.choice";
+  const store = { mode: "pending", db: null, downloads: null, session: ls.get(SESSION, null), queue: [], busy: false, timer: null, info: { accounts: false, donateUrl: "", legacy: false, people: 0 }, syncCls: "", syncKey: "syncLoading" };
+  const userKey = (s) => "kunnash.u." + (s ? s.name : "");
+  const cacheKey = () => (store.mode === "cloud" ? userKey(store.session) + ".cache" : LOCAL);
+  const queueKey = () => userKey(store.session) + ".queue";
+  const state = { settings: null, entries: [], view: { y: now.getFullYear(), m: now.getMonth() }, tab: "home", kind: "expense", pickCat: null, editing: null, filterCat: null, query: "", fresh: null, loaded: false };
 
-  function saveCache() { if (store.mode !== "db") ls.set(CACHE, { settings: state.settings, entries: state.entries }); }
+  function saveCache() { if (store.mode === "cloud" || store.mode === "local") ls.set(cacheKey(), { settings: state.settings, entries: state.entries }); }
   function loadCache() {
-    const c = ls.get(CACHE, null);
-    if (c) { state.settings = normSettings(c.settings); state.entries = (c.entries || []).filter((e) => e && !e.example); return; }
-    const v2 = ls.get("kunnash.v2", null);
-    if (v2) { state.settings = normSettings(v2.settings); state.entries = (v2.entries || []).filter((e) => e && !e.example); saveCache(); }
+    const c = ls.get(cacheKey(), null);
+    state.settings = normSettings(c && c.settings); state.entries = (c && c.entries || []).filter((e) => e && !e.example);
+  }
+  // Older single-notebook versions kept their copy under other names; fold them into this device's notebook once.
+  function adoptOldCopies() {
+    if (ls.get(LOCAL, null)) return;
+    const old = ls.get("kunnash.v3", null) || ls.get("kunnash.v2", null);
+    if (old) ls.set(LOCAL, { settings: old.settings, entries: (old.entries || []).filter((e) => e && !e.example) });
+    ["kunnash.v3", "kunnash.v2", "kunnash.key", "kunnash.mode", "kunnash.queue", "kunnash.migrated"].forEach(ls.del);
   }
   function applyLocal(op) {
     if (op.op === "put") { const i = state.entries.findIndex((x) => x.id === op.entry.id); if (i >= 0) state.entries[i] = op.entry; else state.entries.push(op.entry); }
@@ -597,78 +819,93 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
         else if (op.op === "wipe") for (const e of before) await store.db.collection("expenses").doc(e.id).delete();
       }
     } else if (store.mode === "cloud") {
-      store.queue = store.queue.concat(ops); ls.set(QUEUE, store.queue); flushSoon();
+      store.queue = store.queue.concat(ops); ls.set(queueKey(), store.queue); flushSoon();
     }
   }
-  const api = (method, body) => fetch("/api/data", { method, cache: "no-store", headers: Object.assign({ "x-kunnash-key": store.key }, body ? { "content-type": "application/json" } : {}), body: body ? JSON.stringify(body) : undefined });
-  function setSync(cls, text) { const s = $("sync"); s.className = "sync " + cls; s.querySelector("span").textContent = text; s.title = text; store.status = text; if (state.tab === "settings") renderSyncCard(); }
+  async function call(path, method, body) {
+    const headers = {};
+    if (store.session && store.session.token) headers.authorization = "Bearer " + store.session.token;
+    if (body) headers["content-type"] = "application/json";
+    const r = await fetch(path, { method, cache: "no-store", headers, body: body ? JSON.stringify(body) : undefined });
+    let data = {}; try { data = await r.json(); } catch (e) {}
+    return { status: r.status, ok: r.ok, data };
+  }
+  function setSync(cls, key) {
+    store.syncCls = cls; store.syncKey = key;
+    const s = $("sync"); s.className = "sync " + cls; s.querySelector("span").textContent = t(key); s.title = t(key);
+  }
   function flushSoon(ms) { clearTimeout(store.timer); store.timer = setTimeout(flush, ms === undefined ? 350 : ms); }
   async function flush() {
     if (store.mode !== "cloud" || store.busy) return;
-    if (!store.queue.length) { setSync("ok", "Synced"); return; }
-    store.busy = true; setSync("busy", "Saving");
+    if (!store.queue.length) { setSync("ok", "synced"); return; }
+    store.busy = true; setSync("busy", "saving");
     const batch = store.queue.slice(0, 100);
     try {
-      const r = await api("POST", { ops: batch });
-      if (r.status === 401) { store.busy = false; showLock(); return; }
+      const r = await call("/api/data", "POST", { ops: batch });
+      if (r.status === 401) { store.busy = false; signedOut(); return; }
       if (!r.ok) throw new Error("save " + r.status);
-      store.queue = store.queue.slice(batch.length); ls.set(QUEUE, store.queue);
+      store.queue = store.queue.slice(batch.length); ls.set(queueKey(), store.queue);
       store.busy = false;
-      if (store.queue.length) flush(); else setSync("ok", "Synced");
-    } catch (e) { store.busy = false; setSync("off", "Offline, will sync"); flushSoon(15000); }
+      if (store.queue.length) flush(); else setSync("ok", "synced");
+    } catch (e) { store.busy = false; setSync("off", "offline"); flushSoon(15000); }
   }
   async function pull() {
     if (store.mode !== "cloud") return;
     try {
-      const r = await api("GET");
-      if (r.status === 401) { showLock(); return; }
+      const r = await call("/api/data", "GET");
+      if (r.status === 401) { signedOut(); return; }
       if (!r.ok) throw new Error("pull " + r.status);
-      const d = await r.json();
-      const serverEmpty = !(d.entries || []).length && !d.settings;
-      if (serverEmpty && state.entries.length && !ls.get("kunnash.migrated", false)) {
-        // First time on the server: move what this device already has.
-        store.queue = [{ op: "settings", settings: state.settings }].concat(state.entries.map((e) => ({ op: "put", entry: e }))).concat(store.queue);
-        ls.set(QUEUE, store.queue); ls.set("kunnash.migrated", true); state.loaded = true; render(); flush(); return;
+      const d = r.data;
+      const extra = [];
+      // Bring entries made on this device before signing in into the account.
+      const local = ls.get(LOCAL, null);
+      if (local && ((local.entries || []).length || local.settings)) {
+        const have = new Set((d.entries || []).map((e) => e.id));
+        (local.entries || []).forEach((e) => { if (e && e.id && !have.has(e.id)) extra.push({ op: "put", entry: e }); });
+        if (!d.settings && local.settings) extra.push({ op: "settings", settings: normSettings(local.settings) });
+        ls.del(LOCAL);
       }
-      ls.set("kunnash.migrated", true);
+      if (!d.settings && !extra.some((o) => o.op === "settings")) extra.push({ op: "settings", settings: normSettings(null) });
+      if (extra.length) { store.queue = extra.concat(store.queue); ls.set(queueKey(), store.queue); }
       state.settings = normSettings(d.settings); state.entries = (d.entries || []).filter((e) => e && e.id);
       store.queue.forEach(applyLocal); saveCache(); state.loaded = true; fillSettings(); render();
-      if (store.queue.length) flush(); else setSync("ok", "Synced");
-    } catch (e) { state.loaded = true; render(); setSync("off", "Offline, will sync"); }
+      if (store.queue.length) flush(); else setSync("ok", "synced");
+    } catch (e) { state.loaded = true; render(); setSync("off", "offline"); }
   }
-  function showLock(msg) { $("lock").hidden = false; $("lockErr").hidden = !msg; if (msg) $("lockErr").textContent = msg; setTimeout(() => $("lockIn").focus(), 50); setSync("off", "Locked"); }
-  $("lockForm").addEventListener("submit", async (ev) => {
-    ev.preventDefault();
-    const k = $("lockIn").value.trim(); if (!k) return;
-    const err = (m) => { $("lockErr").textContent = m; $("lockErr").hidden = false; };
-    store.key = k;
-    try {
-      const r = await api("GET");
-      if (r.status === 401) return err("That passcode isn't right.");
-      if (r.status === 429) return err("Too many tries. Wait 15 minutes, then try again.");
-      if (!r.ok) throw new Error();
-      ls.set(KEY, k); $("lock").hidden = true; $("lockIn").value = ""; store.mode = "cloud"; ls.set(MODE, "cloud"); setSync("busy", "Syncing"); pull();
-    } catch (e) { err("Can't reach your site. Check your connection."); }
-  });
+  function enterCloud(session) {
+    store.session = session; ls.set(SESSION, session); ls.del(CHOICE);
+    store.mode = "cloud"; store.queue = ls.get(queueKey(), []);
+    loadCache(); state.loaded = false; fillSettings(); renderAccount(); render();
+    setSync("busy", "syncLoading"); pull();
+  }
+  function enterLocal() {
+    store.mode = "local"; store.session = null; loadCache(); state.loaded = true;
+    setSync("", store.info.accounts ? "thisDevice" : (store.info.reason === "no_storage" ? "setupNeeded" : "thisDevice"));
+    fillSettings(); renderAccount(); render();
+  }
+  function forgetSession() {
+    if (store.session) { ls.del(userKey(store.session) + ".cache"); ls.del(queueKey()); }
+    ls.del(SESSION); store.session = null; store.queue = [];
+  }
+  function signedOut() { forgetSession(); state.entries = []; state.settings = normSettings(null); render(); setSync("off", "signedOut"); openGate("login"); }
 
   // ---------- helpers ----------
-  const cur = () => (state.settings.currency || "MAD").toUpperCase();
-  const money = (n, dec) => { const d = dec === undefined ? (Math.abs(n) % 1 ? 2 : 0) : dec; return Number(n || 0).toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }); };
+  const cur = () => ((state.settings && state.settings.currency) || "MAD").toUpperCase();
+  const money = (n, dec) => { const d = dec === undefined ? (Math.abs(n) % 1 ? 2 : 0) : dec; return Number(n || 0).toLocaleString(loc(), { minimumFractionDigits: d, maximumFractionDigits: d }); };
   const moneyC = (n, d) => money(n, d) + " " + cur();
   const mk = (y, m) => y + "-" + two(m + 1);
   const viewKey = () => mk(state.view.y, state.view.m);
   const dim = (y, m) => new Date(y, m + 1, 0).getDate();
-  const mLabel = (key, opt) => new Date(+key.slice(0, 4), +key.slice(5, 7) - 1, 1).toLocaleDateString(undefined, opt || { month: "long", year: "numeric" });
+  const mLabel = (key, opt) => new Date(+key.slice(0, 4), +key.slice(5, 7) - 1, 1).toLocaleDateString(loc(), opt || { month: "long", year: "numeric" });
   const shiftKey = (key, by) => { const d = new Date(+key.slice(0, 4), +key.slice(5, 7) - 1 + by, 1); return mk(d.getFullYear(), d.getMonth()); };
   const isIn = (e) => e.type === "income";
   const effMonth = (e) => (isIn(e) && e.forMonth) || String(e.date || "").slice(0, 7);
   const catMap = () => { const o = {}; state.settings.categories.forEach((c) => (o[c.id] = c)); return o; };
-  const catOf = (id) => catMap()[id] || UNCAT;
+  const catOf = (id) => catMap()[id] || Object.assign({}, UNCAT, { name: t("untitled") });
   const uid = (p) => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-  const parseAmt = (s) => { const t = String(s || "").trim().replace(/\s/g, "").replace(/,(\d{1,2})$/, ".$1").replace(/,/g, ""); const n = Number(t); return Number.isFinite(n) ? Math.round(n * 100) / 100 : NaN; };
-  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const parseAmt = (s) => { const x = String(s || "").trim().replace(/\s/g, "").replace(/,(\d{1,2})$/, ".$1").replace(/,/g, ""); const n = Number(x); return Number.isFinite(n) ? Math.round(n * 100) / 100 : NaN; };
   const reduce = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function toast(msg, icon) { const t = $("toast"); t.innerHTML = ico(icon || "check") + "<span></span>"; t.querySelector("span").textContent = msg; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => (t.hidden = true), 2300); }
+  function toast(msg, icon) { const el = $("toast"); el.innerHTML = ico(icon || "check") + "<span></span>"; el.querySelector("span").textContent = msg; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => (el.hidden = true), 2400); }
   function paydayDate(key) { const n = dim(+key.slice(0, 4), +key.slice(5, 7) - 1); const p = state.settings.payday === "last" ? n : Math.min(Number(state.settings.payday) || n, n); return key + "-" + two(p); }
   function totals(key) {
     let inc = 0, out = 0; const exp = [], ins = [];
@@ -676,7 +913,7 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
     return { inc, out, exp, ins, left: inc - out };
   }
   const budgetTotal = () => state.settings.categories.reduce((a, c) => a + (Number(c.budget) || 0), 0);
-  function byCat(t) { const by = {}; t.exp.forEach((e) => { const k = catMap()[e.category] ? e.category : UNCAT.id; by[k] = (by[k] || 0) + (Number(e.amount) || 0); }); const list = state.settings.categories.slice(); if (by[UNCAT.id]) list.push(UNCAT); return { by, list: list.sort((a, b) => (by[b.id] || 0) - (by[a.id] || 0)) }; }
+  function byCat(tt) { const by = {}; tt.exp.forEach((e) => { const k = catMap()[e.category] ? e.category : UNCAT.id; by[k] = (by[k] || 0) + (Number(e.amount) || 0); }); const list = state.settings.categories.slice(); if (by[UNCAT.id]) list.push(catOf(UNCAT.id)); return { by, list: list.sort((a, b) => (by[b.id] || 0) - (by[a.id] || 0)) }; }
   const sortEntries = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : (b.created || 0) - (a.created || 0));
   const later = (fn) => requestAnimationFrame(() => requestAnimationFrame(fn));
 
@@ -686,7 +923,7 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
     state.tab = tab;
     $$("[data-view]").forEach((v) => { const on = v.dataset.view === tab; v.hidden = !on; v.classList.remove("enter"); if (on && !reduce()) { void v.offsetWidth; v.classList.add("enter"); } });
     $$(".tabbar [data-go], .rail [data-go]").forEach((b) => { if (b.dataset.go === tab) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
-    if (tab === "settings") { fillSettings(); renderSyncCard(); }
+    if (tab === "settings") { fillSettings(); renderAccount(); }
     window.scrollTo(0, 0);
     try { history.replaceState(null, "", tab === "home" ? location.pathname + location.search : "#" + tab); } catch (e) {}
     render();
@@ -695,93 +932,98 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
   $$("[data-add]").forEach((b) => b.addEventListener("click", () => openSheet()));
 
   function render() {
-    const key = viewKey(), t = totals(key);
+    if (!state.settings) return;
+    const key = viewKey(), tt = totals(key);
     $("monthName").textContent = mLabel(key);
     $("fCur").textContent = cur();
-    if (state.tab === "home") renderHome(key, t);
-    else if (state.tab === "stats") renderStats(key, t);
-    else if (state.tab === "ledger") renderLedger(t);
+    if (state.tab === "home") renderHome(key, tt);
+    else if (state.tab === "stats") renderStats(key, tt);
+    else if (state.tab === "ledger") renderLedger(tt);
   }
 
-  function renderHome(key, t) {
+  function renderHome(key, tt) {
     const y = +key.slice(0, 4), m = +key.slice(5, 7) - 1, n = dim(y, m);
     const isNow = key === TODAY.slice(0, 7), isPast = key < TODAY.slice(0, 7);
     const name = mLabel(key, { month: "long" });
-    const base = t.inc > 0 ? t.inc : budgetTotal();
-    const frac = base > 0 ? t.out / base : 0, over = frac > 1;
-    const R = 100, C = 2 * Math.PI * R, shown = t.inc > 0 ? t.left : t.out;
+    const base = tt.inc > 0 ? tt.inc : budgetTotal();
+    const frac = base > 0 ? tt.out / base : 0, over = frac > 1;
+    const R = 100, C = 2 * Math.PI * R, shown = tt.inc > 0 ? tt.left : tt.out;
     const prevV = $("heroN") ? $("heroN").dataset.v : 0;
     $("ring").innerHTML =
       '<svg viewBox="0 0 236 236"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + (over ? "#ff9ab8" : "#3df5ff") + '"/><stop offset="0.45" stop-color="' + (over ? "#ff4d7d" : "#b45cff") + '"/><stop offset="1" stop-color="' + (over ? "#ff2d55" : "#ff3df2") + '"/></linearGradient></defs>' +
       '<circle class="track" cx="118" cy="118" r="' + R + '" fill="none" stroke-width="16"/>' +
       '<circle class="prog" cx="118" cy="118" r="' + R + '" fill="none" stroke="url(#rg)" stroke-width="16" stroke-linecap="round" stroke-dasharray="' + C + '" stroke-dashoffset="' + (ringFrac.v === null ? C : C * (1 - ringFrac.v)) + '"/></svg>' +
-      '<div class="ringtext"><span>' + esc(t.inc > 0 ? (t.left < 0 ? "Over your salary by" : "Left to spend") : "Spent so far") + '</span><strong class="gtext' + (t.inc > 0 && t.left < 0 ? " neg" : "") + '" id="heroN" data-v="' + (prevV || 0) + '">' + money(prevV || 0, 0) + "</strong><span>" +
-      esc(t.inc > 0 ? Math.round(frac * 100) + "% of money in used" : base > 0 ? "of " + moneyC(base, 0) + " budget" : cur()) + "</span></div>";
+      '<div class="ringtext"><span>' + esc(tt.inc > 0 ? (tt.left < 0 ? t("overSalary") : t("leftToSpend")) : t("spentSoFar")) + '</span><strong class="gtext' + (tt.inc > 0 && tt.left < 0 ? " neg" : "") + '" id="heroN" data-v="' + (prevV || 0) + '">' + money(prevV || 0, 0) + "</strong><span>" +
+      esc(tt.inc > 0 ? t("pctUsed", { p: Math.round(frac * 100) }) : base > 0 ? t("ofBudget", { x: moneyC(base, 0) }) : cur()) + "</span></div>";
     const prog = $("ring").querySelector(".prog"), target = Math.min(frac, 1);
     ringFrac.v = target;
     later(() => (prog.style.strokeDashoffset = String(C * (1 - target))));
     countTo($("heroN"), Math.abs(shown));
-    $("heroTitle").textContent = isPast ? name + ", closed" : isNow ? name + " so far" : name + " ahead";
+    $("heroTitle").textContent = t(isPast ? "heroPast" : isNow ? "heroNow" : "heroFuture", { m: name });
     const daysLeft = isNow ? n - now.getDate() + 1 : 0;
-    const kept = t.inc > 0 ? Math.round((t.left / t.inc) * 100) : null;
+    const kept = tt.inc > 0 ? Math.round((tt.left / tt.inc) * 100) : null;
     const chip = (icon, color, label, value) => '<div class="chip"><span class="ic" style="background:' + tint(color, 0.16) + ";color:" + color + '">' + ico(icon) + "</span><div><small>" + esc(label) + "</small><strong>" + esc(value) + "</strong></div></div>";
     $("chips").innerHTML =
-      chip("down", "#4dffb5", "Money in", money(t.inc)) +
-      chip("up", "#ff3df2", "Spent", money(t.out)) +
-      (isNow && t.inc > 0 ? chip("calendar", "#3df5ff", "Per day left", daysLeft > 0 ? money(Math.max(t.left, 0) / daysLeft, 0) : "0") : chip("calendar", "#3df5ff", "Entries", String(t.exp.length + t.ins.length))) +
-      chip("spark", "#ffd23f", "Kept", kept === null ? "–" : kept + "%");
-    renderSalary(key, t, name);
-    const { by, list } = byCat(t);
+      chip("down", "#4dffb5", t("moneyIn"), money(tt.inc)) +
+      chip("up", "#ff3df2", t("spent"), money(tt.out)) +
+      (isNow && tt.inc > 0 ? chip("calendar", "#3df5ff", t("perDay"), daysLeft > 0 ? money(Math.max(tt.left, 0) / daysLeft, 0) : "0") : chip("calendar", "#3df5ff", t("entries"), String(tt.exp.length + tt.ins.length))) +
+      chip("spark", "#ffd23f", t("kept"), kept === null ? "–" : kept + "%");
+    renderSalary(key, tt, name);
+    const { by, list } = byCat(tt);
     const tiles = $("tiles"); tiles.innerHTML = "";
     list.slice(0, 4).forEach((c) => {
       const sp = by[c.id] || 0, bu = Number(c.budget) || 0, ov = bu > 0 && sp > bu;
       const b = document.createElement("button"); b.type = "button"; b.className = "tile";
-      b.innerHTML = '<span class="top2">' + icoTile(c) + (ov ? '<span class="over-badge">Over</span>' : "") + '</span><span style="display:grid;gap:2px;min-width:0"><span class="nm"></span><span class="amt"><b></b> / <span></span></span></span><span class="bar"><i></i></span>';
+      b.innerHTML = '<span class="top2">' + icoTile(c) + (ov ? '<span class="over-badge">' + esc(t("over")) + "</span>" : "") + '</span><span style="display:grid;gap:2px;min-width:0"><span class="nm"></span><span class="amt"><b></b> / <span></span></span></span><span class="bar"><i></i></span>';
       b.querySelector(".nm").textContent = c.name;
       b.querySelector(".amt b").textContent = money(sp, 0);
-      b.querySelector(".amt span").textContent = bu > 0 ? money(bu, 0) : "no limit";
+      b.querySelector(".amt span").textContent = bu > 0 ? money(bu, 0) : t("noLimit");
       const bar = b.querySelector(".bar i"), col = ov ? "#ff4d7d" : c.color; bar.style.background = col; bar.style.boxShadow = "0 0 10px " + col;
       later(() => (bar.style.width = (bu > 0 ? Math.min(sp / bu, 1) * 100 : sp > 0 ? 100 : 0) + "%"));
       b.addEventListener("click", () => { state.filterCat = c.id; go("ledger"); });
       tiles.appendChild(b);
     });
     const rec = $("recent"); rec.innerHTML = "";
-    const rows = t.exp.concat(t.ins).sort(sortEntries).slice(0, 5);
-    if (!rows.length) rec.appendChild(emptyBox(state.loaded ? "A clean page" : "Opening your notebook", state.loaded ? "Tap the + button to log your first expense." : "Your entries will show up here.", "wallet"));
+    const rows = tt.exp.concat(tt.ins).sort(sortEntries).slice(0, 5);
+    if (!rows.length) rec.appendChild(emptyBox(state.loaded ? t("cleanPage") : t("opening"), state.loaded ? t("cleanText") : t("openingText"), "wallet"));
     rows.forEach((e) => rec.appendChild(rowEl(e, true)));
     state.fresh = null;
     $("installCard").hidden = !showInstallTip();
   }
   const ringFrac = { v: null };
 
-  function renderSalary(key, t, name) {
+  function renderSalary(key, tt, name) {
     const box = $("salaryArea"); box.innerHTML = "";
-    const sal = t.ins.find((e) => e.salary);
+    const sal = tt.ins.find((e) => e.salary);
     if (sal) {
       const d = document.createElement("div"); d.className = "salarydone";
-      d.innerHTML = "<span>" + ico("check") + "</span><button type=\"button\">Edit</button>";
-      d.querySelector("span").append(document.createTextNode("Salary " + moneyC(sal.amount) + " is in"));
+      d.innerHTML = "<span>" + ico("check") + "</span><button type=\"button\"></button>";
+      d.querySelector("span").append(document.createTextNode(t("salaryIn", { x: moneyC(sal.amount) })));
+      d.querySelector("button").textContent = t("edit");
       d.querySelector("button").addEventListener("click", () => openSheet(sal));
       box.appendChild(d); return;
     }
     const w = document.createElement("div"); w.className = "salary";
     w.innerHTML = "<p>" + ico("wallet") + "<span></span></p><form novalidate>" +
-      '<input class="in" id="salAmt" inputmode="decimal" placeholder="Salary amount" aria-label="Salary amount">' +
-      '<input class="in" id="salDate" type="date" aria-label="Paid on">' +
-      '<button class="btn" type="submit">' + ico("plus") + "Add salary</button></form>";
-    w.querySelector("p span").textContent = "Payday? Log your " + name + " salary";
-    w.querySelector("#salAmt").value = state.settings.salary || "";
+      '<input class="in" id="salAmt" inputmode="decimal">' +
+      '<input class="in" id="salDate" type="date">' +
+      '<button class="btn" type="submit">' + ico("plus") + "<span></span></button></form>";
+    w.querySelector("p span").textContent = t("logSalary", { m: name });
+    const amt = w.querySelector("#salAmt"); amt.placeholder = t("salaryAmount"); amt.setAttribute("aria-label", t("salaryAmount"));
+    w.querySelector("#salDate").setAttribute("aria-label", t("paidOn"));
+    w.querySelector(".btn span").textContent = t("addSalary");
+    amt.value = state.settings.salary || "";
     w.querySelector("#salDate").value = state.settings.salaryFor === "next" ? paydayDate(shiftKey(key, -1)) : paydayDate(key);
     w.querySelector("form").addEventListener("submit", async (ev) => {
       ev.preventDefault();
-      const a = parseAmt(w.querySelector("#salAmt").value), dt = w.querySelector("#salDate").value || paydayDate(key);
-      if (!(a > 0)) { toast("Type your salary first", "wallet"); w.querySelector("#salAmt").focus(); return; }
-      if (store.mode === "pending") { toast("One second, still loading", "cloud"); return; }
-      const e = { id: uid("i"), type: "income", salary: true, amount: a, date: dt, forMonth: key, note: "Salary", created: Date.now(), updated: Date.now() };
+      const a = parseAmt(amt.value), dt = w.querySelector("#salDate").value || paydayDate(key);
+      if (!(a > 0)) { toast(t("typeSalary"), "wallet"); amt.focus(); return; }
+      if (store.mode === "pending") { toast(t("oneSec"), "cloud"); return; }
+      const e = { id: uid("i"), type: "income", salary: true, amount: a, date: dt, forMonth: key, note: t("salary"), created: Date.now(), updated: Date.now() };
       const ops = [{ op: "put", entry: e }];
       if (!state.settings.salary) { const s = clone(state.settings); s.salary = a; ops.push({ op: "settings", settings: s }); }
       state.fresh = e.id;
-      try { await commit(ops); toast("Salary added", "wallet"); } catch (x) { toast("Couldn't save. Try again.", "x"); }
+      try { await commit(ops); toast(t("salaryAdded"), "wallet"); } catch (x) { toast(t("saveFail"), "x"); }
     });
     box.appendChild(w);
   }
@@ -791,43 +1033,43 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
     el.dataset.v = target;
     if (reduce() || from === target) { el.textContent = money(target, 0); return; }
     const t0 = performance.now(), dur = 900;
-    const step = (t) => { if (!el.isConnected) return; const p = Math.min((t - t0) / dur, 1), k = 1 - Math.pow(1 - p, 3); el.textContent = money(Math.round(from + (target - from) * k), 0); if (p < 1) requestAnimationFrame(step); };
+    const step = (tm) => { if (!el.isConnected) return; const p = Math.min((tm - t0) / dur, 1), k = 1 - Math.pow(1 - p, 3); el.textContent = money(Math.round(from + (target - from) * k), 0); if (p < 1) requestAnimationFrame(step); };
     requestAnimationFrame(step);
   }
 
   function emptyBox(title, text, icon) { const d = document.createElement("div"); d.className = "empty"; d.innerHTML = '<span class="icotile">' + ico(icon) + "</span><strong></strong><span></span>"; d.querySelector("strong").textContent = title; d.querySelector("span:last-child").textContent = text; return d; }
   function rowEl(e, showDate) {
-    const c = isIn(e) ? { color: "#4dffb5", icon: e.salary ? "wallet" : "down", name: e.salary ? "Salary" : "Income" } : catOf(e.category);
+    const c = isIn(e) ? { color: "#4dffb5", icon: e.salary ? "wallet" : "down", name: e.salary ? t("salary") : t("incomeK") } : catOf(e.category);
     const b = document.createElement("button"); b.type = "button"; b.className = "row" + (state.fresh === e.id ? " fresh" : "");
     b.innerHTML = icoTile(c) + '<span class="t"><b></b><small></small></span><span class="v' + (isIn(e) ? " pos" : "") + '"></span>';
     b.querySelector("b").textContent = e.note || c.name;
-    const dt = new Date(e.date + "T12:00:00").toLocaleDateString(undefined, { day: "numeric", month: "short" });
-    b.querySelector("small").textContent = showDate ? c.name + " · " + (e.date === TODAY ? "Today" : dt) : c.name;
+    const dt = new Date(e.date + "T12:00:00").toLocaleDateString(loc(), { day: "numeric", month: "short" });
+    b.querySelector("small").textContent = showDate ? c.name + " · " + (e.date === TODAY ? t("today") : dt) : c.name;
     b.querySelector(".v").textContent = (isIn(e) ? "+" : "−") + money(e.amount);
     b.addEventListener("click", () => openSheet(e));
     return b;
   }
 
-  function renderStats(key, t) {
+  function renderStats(key, tt) {
     const y = +key.slice(0, 4), m = +key.slice(5, 7) - 1, n = dim(y, m);
     const isNow = key === TODAY.slice(0, 7), isPast = key < TODAY.slice(0, 7);
     const upto = isNow ? now.getDate() : isPast ? n : 0;
     const W = Math.max(300, Math.round(($("curve").clientWidth || 640))), H = W < 600 ? 230 : 300, L = W < 600 ? 48 : 66, R = 14, T = 16, B = 30;
     const daily = new Array(n + 1).fill(0);
-    t.exp.forEach((e) => { if (String(e.date).slice(0, 7) !== key) return; const d = +String(e.date).slice(8, 10); if (d >= 1 && d <= n) daily[d] += Number(e.amount) || 0; });
+    tt.exp.forEach((e) => { if (String(e.date).slice(0, 7) !== key) return; const d = +String(e.date).slice(8, 10); if (d >= 1 && d <= n) daily[d] += Number(e.amount) || 0; });
     const cum = []; let run = 0; for (let d = 1; d <= n; d++) { run += daily[d]; cum.push(run); }
     const bt = budgetTotal();
-    const last = Math.max(upto, ...t.exp.map((e) => (String(e.date).slice(0, 7) === key ? +String(e.date).slice(8, 10) : 0)), 0);
-    const top = Math.max(bt, t.inc, run, 1), maxY = top * 1.12;
+    const last = Math.max(upto, ...tt.exp.map((e) => (String(e.date).slice(0, 7) === key ? +String(e.date).slice(8, 10) : 0)), 0);
+    const top = Math.max(bt, tt.inc, run, 1), maxY = top * 1.12;
     const x = (d) => L + ((d - 1) / Math.max(n - 1, 1)) * (W - L - R);
     const yy = (v) => T + (1 - v / maxY) * (H - T - B);
-    let s = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Running total of spending this month"><defs>' +
+    let s = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + esc(t("spendingMonth")) + '"><defs>' +
       '<linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b45cff" stop-opacity="0.55"/><stop offset="1" stop-color="#b45cff" stop-opacity="0"/></linearGradient>' +
       '<linearGradient id="lg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3df5ff"/><stop offset="0.5" stop-color="#b45cff"/><stop offset="1" stop-color="#ff3df2"/></linearGradient>' +
       '<filter id="glow" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
     for (let i = 0; i <= 4; i++) { const v = top * (i / 4); s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + yy(v) + '" y2="' + yy(v) + '" stroke="rgba(255,255,255,0.06)"/><text x="' + (L - 10) + '" y="' + (yy(v) + 4) + '" text-anchor="end">' + esc(money(v, 0)) + "</text>"; }
     [1, 10, 20, n].forEach((d) => (s += '<text x="' + x(d) + '" y="' + (H - 8) + '" text-anchor="middle">' + d + "</text>"));
-    if (t.inc > 0) s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + yy(t.inc) + '" y2="' + yy(t.inc) + '" stroke="#4dffb5" stroke-width="2.5" filter="url(#glow)"/>';
+    if (tt.inc > 0) s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + yy(tt.inc) + '" y2="' + yy(tt.inc) + '" stroke="#4dffb5" stroke-width="2.5" filter="url(#glow)"/>';
     if (bt > 0) s += '<line x1="' + x(1) + '" y1="' + yy(0) + '" x2="' + x(n) + '" y2="' + yy(bt) + '" stroke="#a69bc6" stroke-width="2" stroke-dasharray="6 7"/>';
     if (last >= 1) {
       const pts = []; for (let d = 1; d <= last; d++) pts.push(x(d).toFixed(1) + "," + yy(cum[d - 1]).toFixed(1));
@@ -836,11 +1078,11 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
       s += '<circle cx="' + x(last) + '" cy="' + yy(cum[last - 1]) + '" r="8" fill="#ff3df2" stroke="#05040a" stroke-width="3" filter="url(#glow)"/>';
     }
     $("curve").innerHTML = s + "</svg>";
-    const { by, list } = byCat(t);
+    const { by, list } = byCat(tt);
     const RR = 76, CC = 2 * Math.PI * RR; let off = 0, arcs = "";
-    list.filter((c) => by[c.id] > 0).forEach((c) => { const f = by[c.id] / (t.out || 1), len = Math.max(f * CC - 3, 0.5); arcs += '<circle cx="95" cy="95" r="' + RR + '" fill="none" stroke="' + c.color + '" stroke-width="22" stroke-dasharray="' + len + " " + (CC - len) + '" stroke-dashoffset="' + -off + '" style="filter:drop-shadow(0 0 6px ' + c.color + ')"/>'; off += f * CC; });
-    $("donut").innerHTML = '<svg viewBox="0 0 190 190"><circle cx="95" cy="95" r="' + RR + '" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="22"/>' + arcs + '</svg><div><small>Spent</small><b></b><small>' + esc(cur()) + "</small></div>";
-    $("donut").querySelector("b").textContent = money(t.out, 0);
+    list.filter((c) => by[c.id] > 0).forEach((c) => { const f = by[c.id] / (tt.out || 1), len = Math.max(f * CC - 3, 0.5); arcs += '<circle cx="95" cy="95" r="' + RR + '" fill="none" stroke="' + c.color + '" stroke-width="22" stroke-dasharray="' + len + " " + (CC - len) + '" stroke-dashoffset="' + -off + '" style="filter:drop-shadow(0 0 6px ' + c.color + ')"/>'; off += f * CC; });
+    $("donut").innerHTML = '<svg viewBox="0 0 190 190"><circle cx="95" cy="95" r="' + RR + '" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="22"/>' + arcs + '</svg><div><small>' + esc(t("spent")) + '</small><b></b><small>' + esc(cur()) + "</small></div>";
+    $("donut").querySelector("b").textContent = money(tt.out, 0);
     const cl = $("clist"); cl.innerHTML = "";
     list.forEach((c) => {
       const sp = by[c.id] || 0, bu = Number(c.budget) || 0, ov = bu > 0 && sp > bu;
@@ -848,7 +1090,7 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
       b.innerHTML = icoTile(c) + '<span class="nm"><b></b><span class="bar"><i></i></span></span><span class="val"><b' + (ov ? ' class="over"' : "") + "></b><br><span></span></span>";
       b.querySelector(".nm b").textContent = c.name;
       b.querySelector(".val b").textContent = money(sp, 0);
-      b.querySelector(".val span").textContent = bu > 0 ? "of " + money(bu, 0) : "no limit";
+      b.querySelector(".val span").textContent = bu > 0 ? t("of", { x: money(bu, 0) }) : t("noLimit");
       const bar = b.querySelector(".bar i"); bar.style.background = ov ? "#ff4d7d" : c.color;
       later(() => (bar.style.width = (bu > 0 ? Math.min(sp / bu, 1) * 100 : sp > 0 ? 100 : 0) + "%"));
       b.addEventListener("click", () => { state.filterCat = c.id; go("ledger"); });
@@ -865,24 +1107,24 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
       const a = col.querySelector(".in"), o = col.querySelector(".out");
       a.style.visibility = d.inc ? "" : "hidden"; o.style.visibility = d.out ? "" : "hidden";
       later(() => { a.style.height = (d.inc / max) * 100 + "%"; o.style.height = (d.out / max) * 100 + "%"; });
-      col.title = mLabel(k) + ": in " + moneyC(d.inc) + ", out " + moneyC(d.out);
+      col.title = mLabel(k) + ": " + t("moneyIn") + " " + moneyC(d.inc) + ", " + t("moneyOut") + " " + moneyC(d.out);
       h.appendChild(col);
     });
   }
 
-  function renderLedger(t) {
+  function renderLedger(tt) {
     const f = $("filters"); f.innerHTML = "";
     const mkChip = (id, label, color) => { const b = document.createElement("button"); b.type = "button"; b.className = "fchip"; b.setAttribute("aria-pressed", String(state.filterCat === id)); b.innerHTML = (color ? '<i style="background:' + color + ";box-shadow:0 0 8px " + color + '"></i>' : "") + "<span></span>"; b.querySelector("span").textContent = label; b.addEventListener("click", () => { state.filterCat = id; render(); }); f.appendChild(b); };
-    mkChip(null, "All"); mkChip("_in", "Income", "#4dffb5");
+    mkChip(null, t("all")); mkChip("_in", t("income"), "#4dffb5");
     state.settings.categories.forEach((c) => mkChip(c.id, c.name, c.color));
     const q = state.query.trim().toLowerCase();
-    let rows = t.exp.concat(t.ins);
+    let rows = tt.exp.concat(tt.ins);
     if (state.filterCat === "_in") rows = rows.filter(isIn);
     else if (state.filterCat) rows = rows.filter((e) => !isIn(e) && (catMap()[e.category] ? e.category : UNCAT.id) === state.filterCat);
-    if (q) rows = rows.filter((e) => (e.note || "").toLowerCase().includes(q) || (isIn(e) ? "income salary" : catOf(e.category).name.toLowerCase()).includes(q));
+    if (q) rows = rows.filter((e) => (e.note || "").toLowerCase().includes(q) || (isIn(e) ? (t("income") + " " + t("salary")).toLowerCase() : catOf(e.category).name.toLowerCase()).includes(q));
     rows.sort(sortEntries);
     const box = $("ledger"); box.innerHTML = "";
-    if (!rows.length) { box.appendChild(t.exp.length + t.ins.length ? emptyBox("Nothing matches", "Try another word or pick All.", "search") : emptyBox("No entries in " + mLabel(viewKey(), { month: "long" }), "Tap the + button to add one.", "list")); return; }
+    if (!rows.length) { box.appendChild(tt.exp.length + tt.ins.length ? emptyBox(t("nothing"), t("nothingText"), "search") : emptyBox(t("noEntries", { m: mLabel(viewKey(), { month: "long" }) }), t("noEntriesText"), "list")); return; }
     let lastDate = null;
     rows.forEach((e) => {
       if (e.date !== lastDate) {
@@ -890,7 +1132,7 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
         const h = document.createElement("div"); h.className = "dayh";
         const out = rows.filter((x) => x.date === e.date && !isIn(x)).reduce((a, x) => a + (Number(x.amount) || 0), 0);
         h.innerHTML = "<span></span><span></span>";
-        h.children[0].textContent = e.date === TODAY ? "Today" : new Date(e.date + "T12:00:00").toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
+        h.children[0].textContent = e.date === TODAY ? t("today") : new Date(e.date + "T12:00:00").toLocaleDateString(loc(), { weekday: "long", day: "numeric", month: "long" });
         h.children[1].textContent = out ? "−" + money(out) : "";
         box.appendChild(h);
       }
@@ -911,30 +1153,30 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
     $("fDate").value = e ? e.date : (viewKey() === TODAY.slice(0, 7) ? TODAY : viewKey() + "-01");
     $("fNote").value = e ? e.note || "" : "";
     setKind(e ? (isIn(e) ? "income" : "expense") : "expense");
-    $("sheetH").textContent = e ? (isIn(e) ? "Edit income" : "Edit expense") : "Add money";
-    $("fGo").textContent = e ? "Save changes" : "Add expense";
-    $("fDel").hidden = !e; $("fDel").textContent = "Delete"; delArmed = false;
-    $("fErr").hidden = true;
-    renderCatPick(); renderPreview();
-    $("toast").hidden = true; sizeAmount();
+    $("sheetH").textContent = e ? t(isIn(e) ? "editIncome" : "editExpense") : t("addMoney");
+    $("fGo").textContent = e ? t("saveChanges") : t("addExpense");
+    $("fDel").hidden = !e; $("fDel").textContent = t("del"); delArmed = false;
+    $("fErr").hidden = true; $("toast").hidden = true;
+    renderCatPick(); renderPreview(); sizeAmount();
     $("sheet").hidden = false; document.body.style.overflow = "hidden";
     setTimeout(() => $("fAmount").focus(), 80);
   }
   function closeSheet() { $("sheet").hidden = true; document.body.style.overflow = ""; state.editing = null; if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true }); }
   $("scrim").addEventListener("click", closeSheet); $("sheetX").addEventListener("click", closeSheet);
+  const rtl = () => document.documentElement.dir === "rtl";
   document.addEventListener("keydown", (ev) => {
     if (ev.key === "Escape" && !$("sheet").hidden) { closeSheet(); return; }
     if (ev.target.closest && ev.target.closest("input, select, textarea")) return;
-    if (!$("sheet").hidden || !$("lock").hidden) return;
-    if (ev.key === "ArrowLeft") shiftView(-1); else if (ev.key === "ArrowRight") shiftView(1);
+    if (!$("sheet").hidden || !$("gate").hidden) return;
+    if (ev.key === "ArrowLeft") shiftView(rtl() ? 1 : -1); else if (ev.key === "ArrowRight") shiftView(rtl() ? -1 : 1);
     else if (ev.key === "n" || ev.key === "+") { ev.preventDefault(); openSheet(); }
   });
   function setKind(k) {
     state.kind = k;
     $("kExp").setAttribute("aria-pressed", String(k === "expense")); $("kInc").setAttribute("aria-pressed", String(k === "income"));
     $("catWrap").hidden = k === "income";
-    $("fNote").placeholder = k === "income" ? "Salary, freelance, gift" : "Marjane, taxi";
-    if (!state.editing) $("fGo").textContent = k === "income" ? "Add income" : "Add expense";
+    $("fNote").placeholder = t(k === "income" ? "notePhIn" : "notePhOut");
+    if (!state.editing) $("fGo").textContent = t(k === "income" ? "addIncome" : "addExpense");
     renderPreview();
   }
   $("kExp").addEventListener("click", () => setKind("expense"));
@@ -950,32 +1192,33 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
   }
   function renderPreview() {
     const a = parseAmt($("fAmount").value), p = $("preview");
-    if (!(a > 0)) { p.textContent = state.kind === "income" ? "Money coming in" : "Money going out"; return; }
+    if (!(a > 0)) { p.textContent = t(state.kind === "income" ? "comingIn" : "goingOut"); return; }
     const date = $("fDate").value || TODAY;
     const prev = state.editing ? state.entries.find((x) => x.id === state.editing) : null;
     const key = prev && isIn(prev) && prev.forMonth ? prev.forMonth : date.slice(0, 7);
-    const t = totals(key), old = prev ? Number(prev.amount) || 0 : 0;
-    let inc = t.inc - (prev && isIn(prev) ? old : 0), out = t.out - (prev && !isIn(prev) ? old : 0);
+    const tt = totals(key), old = prev ? Number(prev.amount) || 0 : 0;
+    let inc = tt.inc - (prev && isIn(prev) ? old : 0), out = tt.out - (prev && !isIn(prev) ? old : 0);
     if (state.kind === "income") inc += a; else out += a;
     const nm = mLabel(key, { month: "long" });
-    p.innerHTML = inc > 0 ? "You'd have <b" + (inc - out < 0 ? ' class="neg"' : "") + ">" + esc(moneyC(inc - out)) + "</b> left in " + esc(nm) : esc(nm) + " spending becomes <b>" + esc(moneyC(out)) + "</b>";
+    const amtHtml = (v, neg) => "<b" + (neg ? ' class="neg"' : "") + ' dir="ltr">' + esc(moneyC(v)) + "</b>";
+    p.innerHTML = inc > 0 ? esc(t("wouldHave", { x: "\u0001", m: nm })).replace("\u0001", amtHtml(inc - out, inc - out < 0)) : esc(t("spendingBecomes", { x: "\u0001", m: nm })).replace("\u0001", amtHtml(out));
   }
   function sizeAmount() { const v = $("fAmount").value || "0"; $("fAmount").style.width = Math.min(Math.max(v.length, 1) + 0.6, 11) + "ch"; }
   ["fAmount", "fDate"].forEach((id) => $(id).addEventListener("input", renderPreview));
   $("fAmount").addEventListener("input", sizeAmount);
   $("fDel").addEventListener("click", async () => {
-    if (!delArmed) { delArmed = true; $("fDel").textContent = "Tap again"; setTimeout(() => { delArmed = false; $("fDel").textContent = "Delete"; }, 3000); return; }
+    if (!delArmed) { delArmed = true; $("fDel").textContent = t("tapAgain"); setTimeout(() => { delArmed = false; $("fDel").textContent = t("del"); }, 3000); return; }
     const id = state.editing; closeSheet();
-    try { await commit([{ op: "del", id }]); toast("Deleted", "trash"); } catch (x) { toast("Couldn't delete. Try again.", "x"); }
+    try { await commit([{ op: "del", id }]); toast(t("deletedT"), "trash"); } catch (x) { toast(t("deleteFail"), "x"); }
   });
   $("form").addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const err = $("fErr"), a = parseAmt($("fAmount").value), date = $("fDate").value;
     const fail = (msg) => { err.textContent = msg; err.hidden = false; };
-    if (!(a > 0)) { fail("Type an amount above zero, like 45 or 12.50."); $("fAmount").focus(); return; }
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) { fail("Pick a date."); return; }
-    if (state.kind === "expense" && !catMap()[state.pickCat]) { fail("Pick a category."); return; }
-    if (store.mode === "pending") { fail("One second, still loading."); return; }
+    if (!(a > 0)) { fail(t("errAmount")); $("fAmount").focus(); return; }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) { fail(t("errDate")); return; }
+    if (state.kind === "expense" && !catMap()[state.pickCat]) { fail(t("errCat")); return; }
+    if (store.mode === "pending") { fail(t("oneSec")); return; }
     const prev = state.editing ? state.entries.find((x) => x.id === state.editing) : null;
     const e = { id: prev ? prev.id : uid(state.kind === "income" ? "i" : "e"), type: state.kind, amount: a, date, note: $("fNote").value.trim().slice(0, 80), created: prev ? prev.created || Date.now() : Date.now(), updated: Date.now() };
     if (state.kind === "expense") e.category = state.pickCat;
@@ -988,17 +1231,19 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
     const target = effMonth(e);
     if (target !== viewKey()) state.view = { y: +target.slice(0, 4), m: +target.slice(5, 7) - 1 };
     closeSheet();
-    try { await commit([{ op: "put", entry: e }]); toast(prev ? "Saved" : (isIn(e) ? "+" : "−") + moneyC(a), isIn(e) ? "down" : "check"); }
-    catch (x) { toast("Couldn't save. Try again.", "x"); }
+    try { await commit([{ op: "put", entry: e }]); toast(prev ? t("saved") : (isIn(e) ? "+" : "−") + moneyC(a), isIn(e) ? "down" : "check"); }
+    catch (x) { toast(t("saveFail"), "x"); }
   });
 
   // ---------- settings ----------
   let draft = null, iconFor = null;
   function fillSettings() {
+    if (!state.settings) return;
     draft = clone(state.settings);
     $("sCur").value = draft.currency; $("sSalary").value = draft.salary || "";
-    const pay = $("sPay"); pay.innerHTML = '<option value="last">Last day of the month</option>';
-    for (let d = 1; d <= 31; d++) { const o = document.createElement("option"); o.value = String(d); o.textContent = "Day " + d; pay.appendChild(o); }
+    const pay = $("sPay"); pay.innerHTML = "";
+    const o0 = document.createElement("option"); o0.value = "last"; o0.textContent = t("lastDay"); pay.appendChild(o0);
+    for (let d = 1; d <= 31; d++) { const o = document.createElement("option"); o.value = String(d); o.textContent = t("dayN", { n: d }); pay.appendChild(o); }
     pay.value = String(draft.payday); $("sFor").value = draft.salaryFor;
     renderCatEdit();
   }
@@ -1006,8 +1251,9 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
     const box = $("catEdit"), pick = $("iconPick"); box.innerHTML = "";
     draft.categories.forEach((c, i) => {
       const r = document.createElement("div"); r.className = "catrow";
-      r.innerHTML = '<button type="button" class="icobtn" aria-label="Change icon and color"></button><input class="in" maxlength="40" aria-label="Name"><input class="in" type="number" min="0" step="50" inputmode="decimal" aria-label="Monthly budget"><button type="button" class="rm" aria-label="Remove category"></button>';
+      r.innerHTML = '<button type="button" class="icobtn"></button><input class="in" maxlength="40"><input class="in" type="number" min="0" step="50" inputmode="decimal"><button type="button" class="rm"></button>';
       const [ib, nm, bu, rm] = r.children;
+      ib.setAttribute("aria-label", t("changeIcon")); rm.setAttribute("aria-label", t("removeCat")); nm.setAttribute("aria-label", t("catName")); bu.setAttribute("aria-label", t("catBudget"));
       ib.style.background = tint(c.color, 0.16); ib.style.color = c.color; ib.style.boxShadow = iconFor === c.id ? "0 0 0 2px " + c.color : ""; ib.innerHTML = ico(c.icon);
       nm.id = "cn-" + c.id; bu.id = "cb-" + c.id; nm.value = c.name; bu.value = c.budget || 0; rm.innerHTML = ico("trash");
       nm.addEventListener("input", () => (c.name = nm.value));
@@ -1020,75 +1266,239 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
     const c = draft.categories.find((x) => x.id === iconFor);
     if (!c) { pick.hidden = true; box.after(pick); setNote(); return; }
     pick.hidden = false; pick.innerHTML = "";
-    ICON_CHOICES.forEach((n) => { const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-pressed", String(c.icon === n)); b.setAttribute("aria-label", "Icon " + n); b.innerHTML = ico(n); b.addEventListener("click", () => { c.icon = n; renderCatEdit(); }); pick.appendChild(b); });
-    SWATCHES.forEach((col) => { const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", "Color " + col); b.setAttribute("aria-pressed", String(c.color === col)); b.innerHTML = '<i style="display:block;width:20px;height:20px;border-radius:50%;background:' + col + ";box-shadow:0 0 10px " + col + '"></i>'; b.addEventListener("click", () => { c.color = col; renderCatEdit(); }); pick.appendChild(b); });
+    ICON_CHOICES.forEach((n) => { const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-pressed", String(c.icon === n)); b.setAttribute("aria-label", n); b.innerHTML = ico(n); b.addEventListener("click", () => { c.icon = n; renderCatEdit(); }); pick.appendChild(b); });
+    SWATCHES.forEach((col) => { const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", col); b.setAttribute("aria-pressed", String(c.color === col)); b.innerHTML = '<i style="display:block;width:20px;height:20px;border-radius:50%;background:' + col + ";box-shadow:0 0 10px " + col + '"></i>'; b.addEventListener("click", () => { c.color = col; renderCatEdit(); }); pick.appendChild(b); });
     setNote();
   }
   function setNote() {
     if (!draft) return;
     const tot = draft.categories.reduce((a, c) => a + (Number(c.budget) || 0), 0), sal = parseAmt($("sSalary").value) || 0;
-    $("setNote").textContent = "Budgets add up to " + money(tot, 0) + " " + ($("sCur").value || cur()).toUpperCase() + (sal > 0 ? (tot > sal ? ", " + money(tot - sal, 0) + " more than your salary." : ", which leaves " + money(sal - tot, 0) + " to save.") : ".") + " Tap an icon to change it and its color.";
+    const code = ($("sCur").value || cur()).toUpperCase();
+    $("setNote").textContent = t("budgetsTotal", { x: money(tot, 0) + " " + code }) + (sal > 0 ? (tot > sal ? t("budgetsOver", { x: money(tot - sal, 0) }) : t("budgetsLeave", { x: money(sal - tot, 0) })) : ".") + " " + t("tapIcon");
   }
   $("sSalary").addEventListener("input", setNote); $("sCur").addEventListener("input", setNote);
-  $("addCat").addEventListener("click", () => { const id = uid("c"); draft.categories.push({ id, name: "New category", color: SWATCHES[draft.categories.length % SWATCHES.length], icon: "dots", budget: 0 }); iconFor = id; renderCatEdit(); const n = $("cn-" + id); if (n) n.select(); });
+  $("addCat").addEventListener("click", () => { const id = uid("c"); draft.categories.push({ id, name: t("newCategory"), color: SWATCHES[draft.categories.length % SWATCHES.length], icon: "dots", budget: 0 }); iconFor = id; renderCatEdit(); const n = $("cn-" + id); if (n) n.select(); });
   $("saveSet").addEventListener("click", async () => {
     const err = $("sErr"), c = ($("sCur").value || "").trim().toUpperCase();
-    if (!/^[A-Z]{3}$/.test(c)) { err.textContent = "Use a 3-letter currency code like MAD, EUR or USD."; err.hidden = false; return; }
-    const list = draft.categories.map((x) => ({ id: x.id, name: (x.name || "").trim() || "Untitled", color: safeColor(x.color), icon: x.icon || "dots", budget: Math.max(0, Number(x.budget) || 0) }));
-    if (!list.length) { err.textContent = "Keep at least one category."; err.hidden = false; return; }
+    if (!/^[A-Z]{3}$/.test(c)) { err.textContent = t("badCurrency"); err.hidden = false; return; }
+    const list = draft.categories.map((x) => ({ id: x.id, name: (x.name || "").trim() || t("untitled"), color: safeColor(x.color), icon: x.icon || "dots", budget: Math.max(0, Number(x.budget) || 0) }));
+    if (!list.length) { err.textContent = t("keepOne"); err.hidden = false; return; }
     err.hidden = true; iconFor = null;
     const s = { currency: c, salary: Math.max(0, parseAmt($("sSalary").value) || 0), payday: $("sPay").value === "last" ? "last" : Number($("sPay").value), salaryFor: $("sFor").value, categories: list };
-    try { await commit([{ op: "settings", settings: s }]); fillSettings(); toast("Settings saved"); } catch (x) { err.textContent = "Couldn't save. Try again."; err.hidden = false; }
+    try { await commit([{ op: "settings", settings: s }]); fillSettings(); toast(t("settingsSaved")); } catch (x) { err.textContent = t("saveFail"); err.hidden = false; }
   });
-  function renderSyncCard() {
-    const c = $("syncCard"), m = store.mode;
-    const title = m === "cloud" ? "Saved on your Vercel site" : m === "db" ? "Saved to your Claude account" : "Saved on this device only";
-    const text = m === "cloud" ? "Every change goes to your own storage, so your iPhone and laptop show the same notebook. It works offline too and catches up when you're back online."
-      : m === "db" ? "This preview saves to your Claude account. Your Vercel site keeps its own notebook."
-      : store.setup || "Entries stay in this browser. Connect storage on Vercel to keep them on your server.";
-    c.innerHTML = '<div style="display:flex;gap:14px;align-items:center"><span class="icotile" style="background:rgba(180,92,255,.16);color:var(--neon);box-shadow:0 0 20px -8px var(--neon)">' + ico(m === "cloud" ? "cloud" : m === "db" ? "lock" : "phone") + '</span><div style="display:grid;gap:2px"><h2 style="font-size:17px"></h2><span class="muted" style="font-size:14px"></span></div></div><p class="note"></p>';
-    c.querySelector("h2").textContent = title; c.querySelector(".muted").textContent = "Status: " + (store.status || "Ready"); c.querySelector(".note").textContent = text;
-    if (m === "cloud") {
+
+  // ---------- account card ----------
+  function renderAccount() {
+    const c = $("accountCard"), m = store.mode;
+    c.innerHTML = "";
+    const head = document.createElement("div"); head.style.cssText = "display:flex;gap:14px;align-items:center";
+    head.innerHTML = '<span class="icotile" style="background:rgba(180,92,255,.16);color:var(--neon);box-shadow:0 0 20px -8px var(--neon)">' + ico(m === "cloud" ? "user" : m === "db" ? "lock" : "phone") + '</span><div style="display:grid;gap:2px;min-width:0"><h2 style="font-size:17px;overflow-wrap:anywhere"></h2><span class="muted" style="font-size:14px"></span></div>';
+    const h2 = head.querySelector("h2"), sub = head.querySelector(".muted");
+    c.appendChild(head);
+    const note = document.createElement("p"); note.className = "note"; c.appendChild(note);
+    if (m === "cloud" && store.session) {
+      h2.textContent = t("signedInAs", { n: store.session.name }); sub.textContent = t(store.syncKey || "synced"); note.textContent = t("acctText");
       const row = document.createElement("div"); row.className = "actions";
-      const sync = document.createElement("button"); sync.type = "button"; sync.className = "ghost"; sync.innerHTML = ico("cloud") + "Sync now"; sync.addEventListener("click", () => { flush(); pull(); });
-      const out = document.createElement("button"); out.type = "button"; out.className = "ghost"; out.innerHTML = ico("lock") + "Lock this device";
-      out.addEventListener("click", () => { ls.del(KEY); store.key = ""; ls.del(CACHE); state.entries = []; render(); showLock(); });
-      row.append(sync, out); c.appendChild(row);
+      const syncB = button("ghost", "cloud", t("syncNow"), () => { flush(); pull(); });
+      const pwB = button("ghost", "lock", t("changePw"), () => toggle(pwForm));
+      const outB = button("ghost", "logout", t("logOut"), logOut);
+      const delB = button("ghost danger", "trash", t("deleteAcct"), () => toggle(delForm));
+      row.append(syncB, pwB, outB, delB); c.appendChild(row);
+      const pwForm = subform([["currentPw", "password", "current-password"], ["newPw", "password", "new-password"]], t("updatePw"), async (vals, fail) => {
+        if (vals[1].length < 8) return fail(t("e_weak_password"));
+        const r = await call("/api/auth", "POST", { action: "password", password: vals[0], newPassword: vals[1] }).catch(() => null);
+        if (!r) return fail(t("e_network"));
+        if (!r.ok) return fail(t("e_" + (r.data.error || "generic")));
+        store.session = { name: r.data.user.name, token: r.data.token }; ls.set(SESSION, store.session);
+        toast(t("pwChanged"), "lock"); renderAccount();
+      });
+      const delForm = subform([["password", "password", "current-password"]], t("deleteForever"), async (vals, fail) => {
+        const r = await call("/api/auth", "POST", { action: "delete", password: vals[0] }).catch(() => null);
+        if (!r) return fail(t("e_network"));
+        if (!r.ok) return fail(t("e_" + (r.data.error || "generic")));
+        forgetSession(); ls.del(LOCAL); state.entries = []; state.settings = normSettings(null);
+        toast(t("deleted"), "trash"); render(); openGate("signup");
+      }, t("deleteText"), true);
+      c.append(pwForm, delForm);
+    } else if (m === "db") {
+      h2.textContent = t("claudeTitle"); sub.textContent = t("claudeAcct"); note.textContent = t("claudeText");
+    } else {
+      h2.textContent = t("localTitle"); sub.textContent = t(store.syncKey || "thisDevice");
+      note.textContent = store.info.accounts ? t("localText") : t("noStorage");
+      if (store.info.accounts) {
+        const row = document.createElement("div"); row.className = "actions";
+        row.append(button("btn", "user", t("createAcct"), () => openGate("signup")), button("ghost", "logout", t("logIn"), () => openGate("login")));
+        c.appendChild(row);
+      }
     }
-    $("dataNote").textContent = m === "cloud" ? "A backup file is a good extra copy. Restore adds its entries to your notebook." : "Download a backup now and then. Restore adds its entries to this notebook.";
+    $("legacyCard").hidden = !(m === "cloud" && store.info.legacy);
+    $("dataNote").textContent = m === "cloud" ? t("dataCloud") : t("dataLocal");
   }
+  function button(cls, icon, label, fn) { const b = document.createElement("button"); b.type = "button"; b.className = cls; b.innerHTML = ico(icon) + "<span></span>"; b.querySelector("span").textContent = label; b.addEventListener("click", fn); return b; }
+  function toggle(el) { el.hidden = !el.hidden; if (!el.hidden) { const i = el.querySelector("input"); if (i) i.focus(); } }
+  function subform(fields, submitLabel, onSubmit, intro, danger) {
+    const f = document.createElement("form"); f.className = "subform"; f.noValidate = true; f.hidden = true;
+    if (intro) { const p = document.createElement("p"); p.className = "note"; p.textContent = intro; f.appendChild(p); }
+    const inputs = fields.map(([labelKey, type, ac]) => {
+      const wrap = document.createElement("label"); wrap.style.display = "grid";
+      const l = document.createElement("span"); l.className = "lab"; l.textContent = t(labelKey);
+      const i = document.createElement("input"); i.className = "in"; i.type = type; i.autocomplete = ac;
+      wrap.append(l, i); f.appendChild(wrap); return i;
+    });
+    const err = document.createElement("p"); err.className = "err"; err.hidden = true; f.appendChild(err);
+    const b = document.createElement("button"); b.type = "submit"; b.className = danger ? "ghost danger" : "btn"; b.textContent = submitLabel; f.appendChild(b);
+    f.addEventListener("submit", async (ev) => {
+      ev.preventDefault(); err.hidden = true; b.disabled = true;
+      try { await onSubmit(inputs.map((i) => i.value), (msg) => { err.textContent = msg; err.hidden = false; }); }
+      finally { b.disabled = false; }
+    });
+    return f;
+  }
+  async function logOut() {
+    call("/api/auth", "POST", { action: "logout" }).catch(() => {});
+    forgetSession(); state.entries = []; state.settings = normSettings(null); render();
+    toast(t("loggedOut"), "logout"); openGate("login");
+  }
+  $("legacyForm").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const err = $("legacyErr"); err.hidden = true;
+    await flush();
+    const r = await call("/api/data", "POST", { action: "import_legacy", passcode: $("legacyPass").value }).catch(() => null);
+    if (!r) { err.textContent = t("e_network"); err.hidden = false; return; }
+    if (!r.ok) { err.textContent = r.status === 401 && r.data.error === "wrong_passcode" ? t("legacyWrong") : t("e_" + (r.data.error || "generic")); err.hidden = false; return; }
+    store.info.legacy = false; $("legacyPass").value = "";
+    toast(t("legacyDone", { n: r.data.imported || 0 }), "check"); renderAccount(); pull();
+  });
+
+  // ---------- support ----------
+  function paintDonate() {
+    const url = store.info.donateUrl;
+    const card = $("supportCard"), rail = $("railDonate"), home = $("homeDonate");
+    card.hidden = rail.hidden = home.hidden = !url;
+    if (!url) return;
+    card.innerHTML = '<div class="row1"><span class="heart">' + ico("heart") + '</span><div style="display:grid;gap:4px;min-width:0"><h2 style="font-size:17px"></h2><span class="muted" style="font-size:14px" id="usedBy"></span></div></div><p class="note"></p><div><a class="btn" target="_blank" rel="noopener"></a></div>';
+    card.querySelector("h2").textContent = t("supportTitle");
+    card.querySelector("p").textContent = t("supportText");
+    const a = card.querySelector("a"); a.href = url; a.innerHTML = ico("heart") + "<span></span>"; a.querySelector("span").textContent = t("supportBtn");
+    card.querySelector("#usedBy").textContent = store.info.people >= 10 ? t("usedBy", { n: Number(store.info.people).toLocaleString(loc()) }) : "";
+    rail.href = url; rail.innerHTML = ico("heart") + "<span></span>"; rail.querySelector("span").textContent = t("supportBtn");
+    home.innerHTML = ico("heart") + "<span></span> <a class=\"textbtn\" target=\"_blank\" rel=\"noopener\"></a>";
+    home.querySelector("span").textContent = t("homeDonate");
+    const hl = home.querySelector("a"); hl.href = url; hl.textContent = t("homeDonateLink");
+  }
+
+  // ---------- welcome / sign-in ----------
+  let gateMode = "signup", gateCode = null;
+  function openGate(modeName) { gateMode = modeName || "signup"; $("gate").hidden = false; renderGate(); }
+  function closeGate() { $("gate").hidden = true; }
+  function renderGate(codeArg) {
+    if (codeArg) gateCode = codeArg;
+    const code = gateCode;
+    const card = $("authCard"); card.innerHTML = "";
+    if (gateMode === "code" && code) {
+      const h = document.createElement("h2"); h.style.fontSize = "22px"; h.textContent = t(code.fresh ? "saveCodeTitle" : "newCodeTitle");
+      const p = document.createElement("p"); p.className = "muted"; p.textContent = t(code.fresh ? "saveCodeText" : "newCodeText");
+      const box = document.createElement("div"); box.className = "codebox";
+      const cd = document.createElement("code"); cd.textContent = code.value;
+      const cp = button("ghost", "copy", t("copy"), async () => {
+        try { await navigator.clipboard.writeText(code.value); cp.querySelector("span").textContent = t("copied"); }
+        catch (e) { const r = document.createRange(); r.selectNodeContents(cd); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+      });
+      box.append(cd, cp);
+      const chk = document.createElement("label"); chk.className = "check"; chk.innerHTML = '<input type="checkbox" id="codeOk"><span></span>'; chk.querySelector("span").textContent = t("savedIt");
+      const go2 = document.createElement("button"); go2.type = "button"; go2.className = "btn big"; go2.textContent = t("openNotebook"); go2.disabled = true;
+      chk.querySelector("input").addEventListener("change", (e) => (go2.disabled = !e.target.checked));
+      go2.addEventListener("click", () => { closeGate(); enterCloud(code.session); toast(t("welcome", { n: code.session.name }), "spark"); });
+      card.append(h, p, box, chk, go2);
+      return;
+    }
+    if (gateMode !== "recover") {
+      const seg = document.createElement("div"); seg.className = "seg"; seg.setAttribute("role", "group");
+      [["signup", "signUp"], ["login", "logIn"]].forEach(([k, lab]) => {
+        const b = document.createElement("button"); b.type = "button"; b.textContent = t(lab); b.setAttribute("aria-pressed", String(gateMode === k));
+        b.addEventListener("click", () => { gateMode = k; renderGate(); }); seg.appendChild(b);
+      });
+      card.appendChild(seg);
+    } else {
+      const h = document.createElement("h2"); h.style.fontSize = "20px"; h.textContent = t("resetTitle"); card.appendChild(h);
+    }
+    const f = document.createElement("form"); f.noValidate = true;
+    const field = (id, labelKey, type, ac, hintKey) => {
+      const w = document.createElement("div");
+      w.innerHTML = '<label class="lab"></label><input class="in">' + (hintKey ? '<span class="hint"></span>' : "");
+      const l = w.querySelector("label"), i = w.querySelector("input");
+      l.textContent = t(labelKey); l.htmlFor = id; i.id = id; i.type = type; i.autocomplete = ac; i.dir = "ltr";
+      if (type === "text") { i.autocapitalize = "none"; i.spellcheck = false; }
+      if (hintKey) w.querySelector(".hint").textContent = t(hintKey);
+      f.appendChild(w); return i;
+    };
+    const u = field("gUser", "username", "text", "username", gateMode === "signup" ? "usernameHint" : null);
+    const codeIn = gateMode === "recover" ? field("gCode", "recoveryCode", "text", "one-time-code") : null;
+    const pw = field("gPass", gateMode === "recover" ? "newPw" : "password", "password", gateMode === "login" ? "current-password" : "new-password", gateMode === "login" ? null : "passwordHint");
+    const err = document.createElement("p"); err.className = "err"; err.hidden = true; f.appendChild(err);
+    const sb = document.createElement("button"); sb.type = "submit"; sb.className = "btn big"; sb.textContent = t(gateMode === "signup" ? "createNotebook" : gateMode === "login" ? "logIn" : "resetBtn"); f.appendChild(sb);
+    f.addEventListener("submit", async (ev) => {
+      ev.preventDefault(); err.hidden = true;
+      const name = u.value.trim().toLowerCase().replace(/^@/, "");
+      const fail = (k) => { err.textContent = t(k); err.hidden = false; };
+      if (!/^[a-z0-9_.]{3,24}$/.test(name)) return fail(gateMode === "login" ? "e_wrong_login" : "e_bad_username");
+      if (gateMode !== "login" && pw.value.length < 8) return fail("e_weak_password");
+      sb.disabled = true;
+      const body = gateMode === "signup" ? { action: "signup", username: name, password: pw.value, settings: normSettings((ls.get(LOCAL, null) || {}).settings) }
+        : gateMode === "login" ? { action: "login", username: name, password: pw.value }
+        : { action: "recover", username: name, code: codeIn.value, password: pw.value };
+      const r = await call("/api/auth", "POST", body).catch(() => null);
+      sb.disabled = false;
+      if (!r) return fail("e_network");
+      if (!r.ok) return fail("e_" + (I18N.en["e_" + r.data.error] ? r.data.error : "generic"));
+      const session = { name: r.data.user.name, token: r.data.token };
+      if (r.data.recovery) { ls.set(SESSION, session); gateMode = "code"; renderGate({ value: r.data.recovery, session, fresh: body.action === "signup" }); return; }
+      closeGate(); enterCloud(session); toast(t("welcomeBack", { n: session.name }), "spark");
+    });
+    card.appendChild(f);
+    const foot = document.createElement("div"); foot.className = "authfoot";
+    if (gateMode === "login") foot.appendChild(linkBtn(t("forgot"), () => { gateMode = "recover"; renderGate(); }));
+    if (gateMode === "recover") foot.appendChild(linkBtn(t("back"), () => { gateMode = "login"; renderGate(); }));
+    if (gateMode === "signup") foot.appendChild(linkBtn(t("deviceOnly"), () => { ls.set(CHOICE, "local"); closeGate(); enterLocal(); }));
+    const pv = document.createElement("a"); pv.className = "textbtn"; pv.href = "/privacy"; pv.target = "_blank"; pv.rel = "noopener"; pv.textContent = t("privacy");
+    foot.appendChild(pv);
+    card.appendChild(foot);
+    setTimeout(() => u.focus({ preventScroll: true }), 60);
+  }
+  function linkBtn(label, fn) { const b = document.createElement("button"); b.type = "button"; b.className = "textbtn"; b.textContent = label; b.addEventListener("click", fn); return b; }
 
   // ---------- data tools ----------
   async function offerFile(name, text, type) {
-    if (store.downloads) { try { await store.downloads.save({ filename: name, data: text }); toast("Downloaded"); } catch (e) { if (!e || e.code !== "declined") toast("Download isn't available here", "x"); } return; }
+    if (store.downloads) { try { await store.downloads.save({ filename: name, data: text }); toast(t("downloaded")); } catch (e) { if (!e || e.code !== "declined") toast(t("noDownload"), "x"); } return; }
     const url = URL.createObjectURL(new Blob([text], { type }));
     const a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 3000); toast("Downloaded");
+    setTimeout(() => URL.revokeObjectURL(url), 3000); toast(t("downloaded"));
   }
   $("expCsv").addEventListener("click", () => {
     const cm = catMap(), rows = [["date", "type", "amount", "currency", "category", "note"]];
-    state.entries.slice().sort((a, b) => (a.date < b.date ? -1 : 1)).forEach((e) => rows.push([e.date, isIn(e) ? "income" : "expense", e.amount, cur(), isIn(e) ? "" : (cm[e.category] || UNCAT).name, e.note || ""]));
-    offerFile("kunnash-" + TODAY + ".csv", rows.map((r) => r.map((v) => { const s = String(v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }).join(",")).join("\n"), "text/csv");
+    state.entries.slice().sort((a, b) => (a.date < b.date ? -1 : 1)).forEach((e) => rows.push([e.date, isIn(e) ? "income" : "expense", e.amount, cur(), isIn(e) ? "" : (cm[e.category] || catOf("")).name, e.note || ""]));
+    offerFile("kunnash-" + TODAY + ".csv", "﻿" + rows.map((r) => r.map((v) => { const s = String(v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }).join(",")).join("\n"), "text/csv");
   });
-  $("expJson").addEventListener("click", () => offerFile("kunnash-backup-" + TODAY + ".json", JSON.stringify({ app: "kunnash", version: 3, settings: state.settings, entries: state.entries }, null, 1), "application/json"));
+  $("expJson").addEventListener("click", () => offerFile("kunnash-backup-" + TODAY + ".json", JSON.stringify({ app: "kunnash", version: 4, settings: state.settings, entries: state.entries }, null, 1), "application/json"));
   $("impJson").addEventListener("change", async () => {
     const f = $("impJson").files[0]; $("impJson").value = ""; if (!f) return;
-    let d; try { d = JSON.parse(await f.text()); } catch (e) { toast("That isn't a Kunnash backup", "x"); return; }
-    if (!d || !Array.isArray(d.entries)) { toast("That isn't a Kunnash backup", "x"); return; }
+    let d; try { d = JSON.parse(await f.text()); } catch (e) { toast(t("notBackup"), "x"); return; }
+    if (!d || !Array.isArray(d.entries)) { toast(t("notBackup"), "x"); return; }
     const clean = d.entries.filter((e) => e && e.id && e.date && Number(e.amount) > 0 && !e.example).map((e) => {
       const o = { id: String(e.id).replace(/[^\w\-.~:@+]/g, "").slice(0, 60) || uid("e"), type: e.type === "income" ? "income" : "expense", amount: Math.round(Number(e.amount) * 100) / 100, date: String(e.date).slice(0, 10), note: String(e.note || "").slice(0, 80), created: Number(e.created) || Date.now(), updated: Date.now() };
       if (e.category) o.category = String(e.category).slice(0, 60); if (e.salary) o.salary = true; if (e.forMonth) o.forMonth = String(e.forMonth).slice(0, 7);
       return o;
     });
     const ops = (d.settings ? [{ op: "settings", settings: normSettings(d.settings) }] : []).concat(clean.map((e) => ({ op: "put", entry: e })));
-    try { await commit(ops); fillSettings(); toast("Restored " + clean.length + " entries"); } catch (e) { toast("Restore stopped partway. Try again.", "x"); }
+    try { await commit(ops); fillSettings(); toast(t("restored", { n: clean.length })); } catch (e) { toast(t("restoreFail"), "x"); }
   });
   let wipeArmed = false;
   $("wipe").addEventListener("click", async () => {
     const b = $("wipe");
-    if (!wipeArmed) { wipeArmed = true; b.textContent = "Tap again to erase " + state.entries.length; setTimeout(() => { wipeArmed = false; b.textContent = "Erase all entries"; }, 4000); return; }
-    wipeArmed = false; b.textContent = "Erase all entries";
-    try { await commit([{ op: "wipe" }]); toast("Everything erased", "trash"); } catch (e) { toast("Couldn't erase. Try again.", "x"); }
+    if (!wipeArmed) { wipeArmed = true; b.textContent = t("eraseAgain", { n: state.entries.length }); setTimeout(() => { wipeArmed = false; b.textContent = t("eraseAll"); }, 4000); return; }
+    wipeArmed = false; b.textContent = t("eraseAll");
+    try { await commit([{ op: "wipe" }]); toast(t("erased"), "trash"); } catch (e) { toast(t("eraseFail"), "x"); }
   });
 
   // ---------- month nav, swipe, install ----------
@@ -1096,15 +1506,22 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
   $("prev").addEventListener("click", () => shiftView(-1)); $("next").addEventListener("click", () => shiftView(1));
   let tx = null; const mainEl = document.querySelector("main");
   mainEl.addEventListener("touchstart", (e) => { tx = e.touches.length === 1 && !e.target.closest(".filters, input, select, [data-view=settings]") ? [e.touches[0].clientX, e.touches[0].clientY] : null; }, { passive: true });
-  mainEl.addEventListener("touchend", (e) => { if (!tx) return; const dx = e.changedTouches[0].clientX - tx[0], dy = e.changedTouches[0].clientY - tx[1]; if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 2) shiftView(dx < 0 ? 1 : -1); tx = null; }, { passive: true });
+  mainEl.addEventListener("touchend", (e) => { if (!tx) return; const dx = e.changedTouches[0].clientX - tx[0], dy = e.changedTouches[0].clientY - tx[1]; if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 2) shiftView((dx < 0) !== rtl() ? 1 : -1); tx = null; }, { passive: true });
   const standalone = () => (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
   const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   const showInstallTip = () => store.mode !== "db" && isIOS() && !standalone() && !ls.get("kunnash.installHidden", false);
   $("installHide").addEventListener("click", () => { ls.set("kunnash.installHidden", true); $("installCard").hidden = true; });
+  let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if (state.tab === "stats") render(); }, 200); });
 
   // ---------- boot ----------
+  const guess = () => { const n = (navigator.language || "en").slice(0, 2).toLowerCase(); return I18N[n] ? n : "en"; };
+  setLang(ls.get("kunnash.lang", null) || guess(), true);
+  adoptOldCopies();
+  state.settings = normSettings(null);
   const startTab = (location.hash || "").replace("#", "");
-  loadCache(); fillSettings(); go(NAV[startTab] ? startTab : "home");
+  go(NAV[startTab] ? startTab : "home");
+  setSync("busy", "syncLoading");
+
   async function boot() {
     const c = window.claude;
     if (c && typeof c.use === "function") {
@@ -1112,35 +1529,34 @@ select.in { appearance: none; -webkit-appearance: none; background-image: url("d
       store.downloads = dl; if (!dl) { $("expCsv").hidden = true; $("expJson").hidden = true; }
       const owner = user ? await user.isOwner() : false;
       if (db && owner) {
-        store.mode = "db"; store.db = db; setSync("ok", "Claude account");
+        store.mode = "db"; store.db = db; setSync("ok", "claudeAcct"); renderAccount();
         let a = false, b = false;
-        db.doc("settings/main").onSnapshot((snap) => { a = true; state.settings = normSettings(snap.exists ? clone(snap.data()) : null); if (!(document.activeElement && document.activeElement.closest && document.activeElement.closest("[data-view=settings]"))) fillSettings(); state.loaded = a && b; render(); }, () => setSync("off", "Disconnected"));
-        db.collection("expenses").onSnapshot((snap) => { b = true; state.entries = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((e) => !e.example); state.loaded = a && b; render(); }, () => setSync("off", "Disconnected"));
+        db.doc("settings/main").onSnapshot((snap) => { a = true; state.settings = normSettings(snap.exists ? clone(snap.data()) : null); if (!(document.activeElement && document.activeElement.closest && document.activeElement.closest("[data-view=settings]"))) fillSettings(); state.loaded = a && b; render(); }, () => setSync("off", "offline"));
+        db.collection("expenses").onSnapshot((snap) => { b = true; state.entries = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((e) => !e.example); state.loaded = a && b; render(); }, () => setSync("off", "offline"));
         return;
       }
-      store.mode = "local"; state.loaded = true; setSync("", "This device"); render(); return;
+      enterLocal(); return;
     }
+    let online = false;
     if (/^https?:$/.test(location.protocol)) {
       try {
-        const r = await api("GET");
+        const r = await fetch("/api/config", { cache: "no-store" });
         const ct = r.headers.get("content-type") || "";
-        if (r.status === 401 && ct.includes("json")) { store.mode = "cloud"; ls.set(MODE, "cloud"); state.loaded = true; render(); showLock(); return; }
-        if (r.status === 429) { store.mode = "cloud"; state.loaded = true; render(); showLock("Too many tries. Wait 15 minutes, then try again."); return; }
-        if (r.ok && ct.includes("json")) { store.mode = "cloud"; ls.set(MODE, "cloud"); setSync("busy", "Syncing"); await pull(); return; }
-        if (ct.includes("json")) {
-          const d = await r.json().catch(() => ({}));
-          if (d.error === "no_storage") store.setup = "Your site is live but has no storage yet. In Vercel, open the project, go to Storage, add Upstash for Redis, then redeploy.";
-          if (d.error === "no_passcode") store.setup = "Storage is connected. Now add an environment variable named KUNNASH_PASSCODE in Vercel (at least 6 characters), then redeploy.";
-        }
-      } catch (e) {
-        if (ls.get(MODE, "") === "cloud") { store.mode = "cloud"; state.loaded = true; setSync("off", "Offline, will sync"); render(); return; }
-      }
+        if (r.ok && ct.includes("json")) { store.info = Object.assign(store.info, await r.json()); online = true; }
+      } catch (e) {}
     }
-    store.mode = "local"; state.loaded = true; setSync("", store.setup ? "Setup needed" : "This device"); render();
+    paintDonate();
+    if (store.session && store.session.token) {
+      if (online && !store.info.accounts && store.info.reason === "no_storage") { forgetSession(); enterLocal(); return; }
+      enterCloud(store.session);
+      if (!online) setSync("off", "offline");
+      return;
+    }
+    if (store.info.accounts && ls.get(CHOICE, "") !== "local") { enterLocal(); openGate("signup"); return; }
+    enterLocal();
   }
-  boot().catch(() => { store.mode = "local"; state.loaded = true; render(); });
-  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && store.mode === "cloud" && $("lock").hidden) { flush(); pull(); } });
-  let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if (state.tab === "stats") render(); }, 200); });
+  boot().catch(() => { enterLocal(); });
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && store.mode === "cloud" && $("gate").hidden) { flush(); pull(); } });
   window.addEventListener("online", () => { if (store.mode === "cloud") { flush(); pull(); } });
 
   if ("serviceWorker" in navigator && location.protocol === "https:" && !(window.claude && window.claude.use)) {

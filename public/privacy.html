@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05040a">
+<meta name="color-scheme" content="dark">
+<title>Kunnash privacy</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&family=Figtree:wght@400;600;700&family=Noto+Kufi+Arabic:wght@400;700&display=swap">
+<style>
+:root { --bg: #05040a; --ink: #f6f2ff; --muted: #b2a8d0; --neon: #b45cff; --edge: rgba(190, 120, 255, 0.2); --card: rgba(24, 16, 40, 0.7); color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: radial-gradient(120% 60% at 50% -10%, #1a0b33 0%, var(--bg) 60%) fixed, var(--bg); color: var(--ink); font-family: "Figtree", -apple-system, "Segoe UI", system-ui, sans-serif; font-size: 17px; line-height: 1.6;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 28px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 48px);
+  padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+main { max-width: 680px; margin: 0 auto; display: grid; gap: 22px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 18px; }
+.brand i { width: 36px; height: 36px; border-radius: 11px; background: linear-gradient(135deg, var(--neon), #ff3df2); display: grid; place-items: center; font-style: normal; color: #12051f; }
+nav { display: flex; gap: 6px; }
+nav a { color: var(--muted); text-decoration: none; font-weight: 700; padding: 6px 10px; border-radius: 10px; }
+nav a:hover, nav a:focus-visible { color: var(--ink); background: rgba(255, 255, 255, 0.07); }
+section { background: var(--card); border: 1px solid var(--edge); border-radius: 24px; padding: 24px; }
+h1 { font-family: "Unbounded", sans-serif; font-size: 26px; line-height: 1.2; margin: 0 0 6px; letter-spacing: -0.02em; }
+h2 { font-size: 18px; margin: 22px 0 6px; }
+p, li { color: #e9e3ff; }
+ul { padding-inline-start: 20px; margin: 6px 0; }
+.small { color: var(--muted); font-size: 14px; }
+[lang="ar"] { font-family: "Noto Kufi Arabic", "Figtree", sans-serif; }
+[lang="ar"] h1 { font-family: "Noto Kufi Arabic", sans-serif; letter-spacing: 0; }
+a { color: #d7b1ff; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <a class="brand" href="/"><i>K</i>Kunnash</a>
+    <nav><a href="#en">English</a><a href="#fr">Français</a><a href="#ar">العربية</a></nav>
+  </header>
+
+  <section id="en" lang="en">
+    <h1>Privacy</h1>
+    <p class="small">Last updated October 2026</p>
+    <p>Kunnash is a free budget notebook. It has no ads, no trackers and no analytics scripts.</p>
+    <h2>What we store</h2>
+    <ul>
+      <li>Your username and a scrambled (hashed) copy of your password and recovery code. We never see or store your real password.</li>
+      <li>What you type into the app: amounts, dates, notes, categories, budgets and settings.</li>
+      <li>Short-lived security counters (for example, failed log-in attempts) so nobody can guess passwords. These delete themselves within an hour.</li>
+    </ul>
+    <p>We don't ask for your name, email or phone number. If you choose "use it on this device only", nothing leaves your device.</p>
+    <h2>Where it lives</h2>
+    <p>The app runs on Vercel and your notebook is stored with Upstash, both in the United States. Your data is used only to show you your own notebook. We never sell it, share it or use it for advertising.</p>
+    <h2>Your control</h2>
+    <ul>
+      <li>Download everything at any time from Settings (CSV or backup file).</li>
+      <li>Delete your account in Settings. Your account and every entry are erased immediately.</li>
+    </ul>
+    <h2>Donations</h2>
+    <p>Donations are optional and handled by the donation service you choose to use. Kunnash doesn't see your payment details.</p>
+    <h2>Questions</h2>
+    <p>Contact the person who shared Kunnash with you, or open an issue on the project's GitHub page.</p>
+  </section>
+
+  <section id="fr" lang="fr">
+    <h1>Confidentialité</h1>
+    <p class="small">Mise à jour : octobre 2026</p>
+    <p>Kunnash est un carnet de budget gratuit. Pas de pub, pas de traceurs, pas de scripts d'analyse.</p>
+    <h2>Ce que nous enregistrons</h2>
+    <ul>
+      <li>Ton nom d'utilisateur et une version brouillée (hachée) de ton mot de passe et de ton code de secours. Nous ne voyons jamais ton vrai mot de passe.</li>
+      <li>Ce que tu saisis dans l'app : montants, dates, notes, catégories, budgets et réglages.</li>
+      <li>Des compteurs de sécurité temporaires (par exemple les essais de connexion ratés) pour empêcher de deviner les mots de passe. Ils s'effacent en moins d'une heure.</li>
+    </ul>
+    <p>Nous ne demandons ni nom, ni e-mail, ni téléphone. Si tu choisis « Utiliser sur cet appareil seulement », rien ne quitte ton appareil.</p>
+    <h2>Où sont les données</h2>
+    <p>L'app tourne sur Vercel et ton carnet est stocké chez Upstash, aux États-Unis. Tes données servent uniquement à t'afficher ton carnet. Nous ne les vendons pas, ne les partageons pas et ne les utilisons pas pour la pub.</p>
+    <h2>Tu gardes le contrôle</h2>
+    <ul>
+      <li>Télécharge tout à tout moment depuis les Réglages (CSV ou sauvegarde).</li>
+      <li>Supprime ton compte dans les Réglages : le compte et toutes les opérations sont effacés immédiatement.</li>
+    </ul>
+    <h2>Dons</h2>
+    <p>Les dons sont facultatifs et gérés par le service de don que tu utilises. Kunnash ne voit pas tes informations de paiement.</p>
+    <h2>Questions</h2>
+    <p>Contacte la personne qui t'a partagé Kunnash, ou ouvre un ticket sur la page GitHub du projet.</p>
+  </section>
+
+  <section id="ar" lang="ar" dir="rtl">
+    <h1>الخصوصية</h1>
+    <p class="small">آخر تحديث: أكتوبر 2026</p>
+    <p>كناش دفتر ميزانية مجاني، بدون إعلانات وبدون أدوات تتبع أو تحليل.</p>
+    <h2>ما الذي نحفظه</h2>
+    <ul>
+      <li>اسم المستخدم ونسخة مشفّرة (مُجزّأة) من كلمة المرور ورمز الاسترجاع. لا نرى كلمة مرورك الحقيقية أبداً.</li>
+      <li>ما تكتبه في التطبيق: المبالغ والتواريخ والملاحظات والفئات والميزانيات والإعدادات.</li>
+      <li>عدّادات أمان مؤقتة (مثل محاولات الدخول الفاشلة) لمنع تخمين كلمات المرور، وتُحذف تلقائياً خلال ساعة.</li>
+    </ul>
+    <p>لا نطلب اسمك ولا بريدك الإلكتروني ولا رقم هاتفك. وإذا اخترت «استعمله على هذا الجهاز فقط» فلا شيء يغادر جهازك.</p>
+    <h2>أين توجد البيانات</h2>
+    <p>يعمل التطبيق على Vercel ويُحفظ كناشك لدى Upstash، في الولايات المتحدة. تُستعمل بياناتك فقط لعرض كناشك لك. لا نبيعها ولا نشاركها ولا نستعملها للإعلانات.</p>
+    <h2>التحكم بيدك</h2>
+    <ul>
+      <li>نزّل كل بياناتك في أي وقت من الإعدادات (CSV أو نسخة احتياطية).</li>
+      <li>احذف حسابك من الإعدادات، فيُمسح الحساب وكل العمليات فوراً.</li>
+    </ul>
+    <h2>التبرعات</h2>
+    <p>التبرعات اختيارية وتتم عبر خدمة التبرع التي تختارها. كناش لا يرى معلومات الدفع الخاصة بك.</p>
+    <h2>أسئلة</h2>
+    <p>تواصل مع الشخص الذي شارك معك كناش، أو افتح تذكرة على صفحة المشروع في GitHub.</p>
+  </section>
+</main>
+<script>
+  // Open the section in the reader's language.
+  (function () {
+    if (location.hash) return;
+    var l = (navigator.language || "en").slice(0, 2);
+    var el = document.getElementById(l === "fr" || l === "ar" ? l : "en");
+    if (el && l !== "en") el.scrollIntoView();
+  })();
+</script>
+</body>
+</html>

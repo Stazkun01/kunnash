@@ -1,6 +1,6 @@
 // Kunnash service worker: opens instantly and works offline once installed.
 // Your data never goes through here; /api is always live.
-const CACHE = "kunnash-v3";
+const CACHE = "kunnash-v4";
 const SHELL = ["/", "/manifest.webmanifest", "/icon.svg", "/apple-touch-icon.png", "/icon-512.png", "/icon-192.png"];
 
 self.addEventListener("install", (e) => {
@@ -21,14 +21,17 @@ self.addEventListener("fetch", (e) => {
 
   // Pages: try the network first so updates show up, fall back to the saved copy offline.
   if (req.mode === "navigate") {
+    const page = url.pathname === "/" || url.pathname === "/index.html" ? "/" : url.pathname;
     e.respondWith(
       fetch(req)
         .then((r) => {
-          const copy = r.clone();
-          caches.open(CACHE).then((c) => c.put("/", copy));
+          if (r.ok) {
+            const copy = r.clone();
+            caches.open(CACHE).then((c) => c.put(page, copy));
+          }
           return r;
         })
-        .catch(() => caches.match("/"))
+        .catch(() => caches.match(page).then((hit) => hit || caches.match("/")))
     );
     return;
   }
