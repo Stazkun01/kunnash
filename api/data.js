@@ -14,11 +14,24 @@ const ID = /^[A-Za-z0-9_\-.~:@+]{1,80}$/;
 const MAX_OPS = 200;
 const MAX_FAILS = 10;
 
-const env = () => ({
-  url: (process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || "").replace(/\/+$/, ""),
-  token: process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || "",
-  pass: process.env.KUNNASH_PASSCODE || ""
-});
+// Finds the Upstash REST keys whatever prefix Vercel gave them (KV_, STORAGE_, UPSTASH_REDIS_, ...).
+function findStorage() {
+  const e = process.env;
+  if (e.KV_REST_API_URL && e.KV_REST_API_TOKEN) return [e.KV_REST_API_URL, e.KV_REST_API_TOKEN];
+  if (e.UPSTASH_REDIS_REST_URL && e.UPSTASH_REDIS_REST_TOKEN) return [e.UPSTASH_REDIS_REST_URL, e.UPSTASH_REDIS_REST_TOKEN];
+  for (const k of Object.keys(e)) {
+    const m = k.match(/^(.*)_REST_API_URL$/) || k.match(/^(.*)_REDIS_REST_URL$/);
+    if (!m) continue;
+    const token = e[m[1] + "_REST_API_TOKEN"] || e[m[1] + "_REDIS_REST_TOKEN"];
+    if (e[k] && token) return [e[k], token];
+  }
+  return ["", ""];
+}
+
+const env = () => {
+  const [url, token] = findStorage();
+  return { url: url.replace(/\/+$/, ""), token, pass: process.env.KUNNASH_PASSCODE || "" };
+};
 
 async function redis(cfg, commands) {
   const r = await fetch(cfg.url + "/pipeline", {
