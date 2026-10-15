@@ -3,7 +3,7 @@
 import {
   NS, USERNAME, storage, redis, send, readBody, sha, clientIp, allow, peek, clear,
   hashSecret, verifySecret, newRecoveryCode, normCode, newId,
-  createSession, sessionUser, bearer, endAllSessions, cleanSettings
+  createSession, sessionUser, bearer, endAllSessions, cleanSettings, LIMITS, TOTAL_KEY, today
 } from "./_lib.js";
 
 const userKey = (name) => NS + "user:" + name;
@@ -29,6 +29,8 @@ export default async function handler(req, res) {
         if (!USERNAME.test(name)) return send(res, 400, { error: "bad_username" });
         if (!okPassword(body.password)) return send(res, 400, { error: "weak_password" });
         if (!(await allow(cfg, "su:" + ip, 8, 3600))) return send(res, 429, { error: "too_many" });
+        if (!(await allow(cfg, "sud:" + ip + ":" + today(), LIMITS.signupsPerIpDay, 86400))) return send(res, 429, { error: "too_many" });
+        if (!(await allow(cfg, "sug:" + today(), LIMITS.signupsPerDay, 86400))) return send(res, 503, { error: "signups_paused" });
         const id = newId(), recovery = newRecoveryCode();
         const record = { id, pw: await hashSecret(body.password), rc: await hashSecret(normCode(recovery)), created: Date.now() };
         const [ok] = await redis(cfg, [["SET", userKey(name), JSON.stringify(record), "NX"]]);
@@ -114,7 +116,9 @@ export default async function handler(req, res) {
 
         // delete: everything about this person goes
         await endAllSessions(cfg, uid);
+        const [had] = await redis(cfg, [["HLEN", NS + "u:" + uid + ":entries"]]);
         await redis(cfg, [
+          ["DECRBY", TOTAL_KEY, Number(had) || 0],
           ["DEL", userKey(name)], ["DEL", NS + "uid:" + uid],
           ["DEL", NS + "u:" + uid + ":settings"], ["DEL", NS + "u:" + uid + ":entries"],
           ["DECR", NS + "stats:users"]

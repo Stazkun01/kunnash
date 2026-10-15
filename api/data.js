@@ -1,15 +1,18 @@
 // Each person's own notebook. Requires a signed-in session (Authorization: Bearer <token>).
 //   GET  /api/data                         -> { settings, entries }
 //   POST /api/data { ops: [] }              -> put / del / settings / wipe
-//   POST /api/data { action: "import_legacy", passcode } -> moves the old single-passcode notebook into this account
-import { timingSafeEqual } from "node:crypto";
 import {
-  NS, LEGACY, ID, MAX_ENTRIES, storage, redis, send, readBody, sha, allow, peek,
+  NS, ID, MAX_ENTRIES, LIMITS, TOTAL_KEY, today, storage, redis, send, readBody, allow,
   sessionUser, cleanEntry, cleanSettings
 } from "./_lib.js";
 
 const MAX_OPS = 200;
-const same = (a, b) => { const x = Buffer.from(sha(a)), y = Buffer.from(sha(b)); return timingSafeEqual(x, y); };
+
+// Keeps a running count of all entries on the site, never below zero.
+async function bumpTotal(cfg, delta) {
+  const [n] = await redis(cfg, [["INCRBY", TOTAL_KEY, delta]]);
+  if (Number(n) < 0) await redis(cfg, [["SET", TOTAL_KEY, 0]]);
+}
 
 export default async function handler(req, res) {
   const cfg = storage();
@@ -31,47 +34,49 @@ export default async function handler(req, res) {
     if (req.method !== "POST") { res.setHeader("Allow", "GET, POST"); return send(res, 405, { error: "method_not_allowed" }); }
     const body = readBody(req) || {};
 
-    if (body.action === "import_legacy") {
-      const pass = process.env.KUNNASH_PASSCODE || "";
-      const bucket = "lg:" + uid;
-      if ((await peek(cfg, bucket)) >= 8) return send(res, 429, { error: "too_many" });
-      if (pass.length < 6 || !same(String(body.passcode || ""), pass)) {
-        await allow(cfg, bucket, 8, 3600);
-        return send(res, 401, { error: "wrong_passcode" });
-      }
-      const [settings, flat] = await redis(cfg, [["GET", LEGACY + "settings"], ["HGETALL", LEGACY + "entries"]]);
-      const cmds = [];
-      let n = 0;
-      for (let i = 0; i + 1 < (flat || []).length; i += 2) { cmds.push(["HSET", ENT, flat[i], flat[i + 1]]); n++; }
-      if (settings) cmds.push(["SET", SET, settings]);
-      cmds.push(["DEL", LEGACY + "entries"], ["DEL", LEGACY + "settings"]);
-      await redis(cfg, cmds);
-      return send(res, 200, { ok: true, imported: n });
-    }
-
     const ops = Array.isArray(body.ops) ? body.ops : null;
     if (!ops || ops.length > MAX_OPS) return send(res, 400, { error: "bad_request" });
     if (!(await allow(cfg, "w:" + uid, 600, 60))) return send(res, 429, { error: "too_many" });
-    const commands = [];
-    let puts = 0;
+    if (!(await allow(cfg, "wd:" + uid + ":" + today(), LIMITS.opsPerDay, 86400, Math.max(ops.length, 1)))) {
+      return send(res, 429, { error: "daily_limit" });
+    }
+
+    // Each command remembers what it was, so the reply can tell how many entries were added or removed.
+    const commands = [], kinds = [], putIds = [];
     for (const op of ops) {
       if (op && op.op === "put") {
         const e = cleanEntry(op.entry);
-        if (e) { commands.push(["HSET", ENT, e.id, JSON.stringify(e)]); puts++; }
+        if (e) { commands.push(["HSET", ENT, e.id, JSON.stringify(e)]); kinds.push("add"); putIds.push(e.id); }
       } else if (op && op.op === "del" && ID.test(String(op.id || ""))) {
-        commands.push(["HDEL", ENT, String(op.id)]);
+        commands.push(["HDEL", ENT, String(op.id)]); kinds.push("remove");
       } else if (op && op.op === "settings") {
         const s = cleanSettings(op.settings);
-        if (s) commands.push(["SET", SET, s]);
+        if (s) { commands.push(["SET", SET, s]); kinds.push("other"); }
       } else if (op && op.op === "wipe") {
-        commands.push(["DEL", ENT]);
+        commands.push(["HLEN", ENT]); kinds.push("remove"); // how many the wipe takes away
+        commands.push(["DEL", ENT]); kinds.push("other");
       }
     }
-    if (puts) {
-      const [count] = await redis(cfg, [["HLEN", ENT]]);
-      if (Number(count) + puts > MAX_ENTRIES) return send(res, 413, { error: "too_many_entries" });
+
+    if (putIds.length) {
+      const [count, total] = await redis(cfg, [["HLEN", ENT], ["GET", TOTAL_KEY]]);
+      const mine = Number(count) || 0, all = Math.max(0, Number(total) || 0);
+      if (mine + putIds.length > MAX_ENTRIES || all + putIds.length > LIMITS.totalEntries) {
+        // Near a limit: edits to existing entries are always fine, so count only the new ones.
+        const ids = [...new Set(putIds)];
+        const found = await redis(cfg, ids.map((id) => ["HEXISTS", ENT, id]));
+        const fresh = ids.filter((_, i) => !Number(found[i])).length;
+        if (fresh && mine + fresh > MAX_ENTRIES) return send(res, 413, { error: "too_many_entries" });
+        if (fresh && all + fresh > LIMITS.totalEntries) return send(res, 507, { error: "storage_full" });
+      }
     }
-    if (commands.length) await redis(cfg, commands);
+
+    if (commands.length) {
+      const out = await redis(cfg, commands);
+      let delta = 0;
+      out.forEach((n, i) => { if (kinds[i] === "add") delta += Number(n) || 0; else if (kinds[i] === "remove") delta -= Number(n) || 0; });
+      if (delta) await bumpTotal(cfg, delta);
+    }
     return send(res, 200, { ok: true, applied: commands.length });
   } catch (err) {
     console.error("kunnash data", err);

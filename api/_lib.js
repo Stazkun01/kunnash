@@ -5,11 +5,24 @@ import { promisify } from "node:util";
 const scrypt = promisify(scryptCb);
 
 export const NS = "kn:"; // multi-user data
-export const LEGACY = "kunnash:"; // the single-notebook version
 export const ID = /^[A-Za-z0-9_\-.~:@+]{1,80}$/;
 export const USERNAME = /^[a-z0-9_.]{3,24}$/;
 export const SESSION_TTL = 60 * 60 * 24 * 180; // 180 days
-export const MAX_ENTRIES = 20000;
+export const MAX_ENTRIES = 5000; // per account: about 7 years of heavy use
+
+// Limits that keep one person (or one script) from using up the shared free storage.
+// Each can be raised in Vercel's environment variables once the project is on a paid plan.
+const envInt = (name, fallback) => {
+  const n = Number.parseInt(process.env[name] || "", 10);
+  return Number.isFinite(n) && n > 0 ? n : fallback;
+};
+export const LIMITS = {
+  opsPerDay: envInt("KUNNASH_OPS_PER_DAY", 6000), // changes one account can save per day (a full backup restore fits)
+  signupsPerIpDay: envInt("KUNNASH_SIGNUPS_PER_IP_DAY", 20), // new accounts from one network per day
+  signupsPerDay: envInt("KUNNASH_SIGNUPS_PER_DAY", 1000), // new accounts across the whole site per day
+  totalEntries: envInt("KUNNASH_MAX_TOTAL_ENTRIES", 600000) // all entries of all accounts (about 150 MB)
+};
+export const TOTAL_KEY = "kn:stats:entries";
 
 // ---------- storage ----------
 function findStorage() {
@@ -59,10 +72,10 @@ export function clientIp(req) {
   return String(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "unknown").split(",")[0].trim();
 }
 
-// Counts an event in a time window; returns true while under the limit.
-export async function allow(cfg, bucket, limit, windowSec) {
+// Counts events in a time window (by `by`, default 1); returns true while under the limit.
+export async function allow(cfg, bucket, limit, windowSec, by = 1) {
   const key = NS + "rl:" + bucket;
-  const [n, ttl] = await redis(cfg, [["INCR", key], ["TTL", key]]);
+  const [n, ttl] = await redis(cfg, [["INCRBY", key, by], ["TTL", key]]);
   if (Number(ttl) < 0) await redis(cfg, [["EXPIRE", key, windowSec]]);
   return Number(n) <= limit;
 }
@@ -123,6 +136,9 @@ export async function endAllSessions(cfg, userId) {
   cmds.push(["DEL", setKey]);
   await redis(cfg, cmds);
 }
+
+// The date (UTC) used to name daily counters, e.g. "20261015".
+export const today = () => new Date().toISOString().slice(0, 10).replace(/-/g, "");
 
 // ---------- entries ----------
 export function cleanEntry(e) {

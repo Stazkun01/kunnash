@@ -3,9 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Kunnash: a free, ad-free monthly budget notebook. Log your salary and expenses and see what is left, on every device.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-h+fPzsJe640U9j1Kd0XLzoclh5QBPfej5nz8ovdbFAM='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="description" content="Log your salary and expenses and see what's left until payday. Free for everyone, no ads, no email needed. English, Français, العربية.">
 <meta name="theme-color" content="#05040a">
 <meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://kunnash.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kunnash">
+<meta property="og:title" content="Kunnash · Free budget notebook">
+<meta property="og:description" content="Log your salary and expenses and see what's left until payday. Free for everyone, no ads, no email needed. English, Français, العربية.">
+<meta property="og:url" content="https://kunnash.vercel.app/">
+<meta property="og:image" content="https://kunnash.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kunnash on a phone: what's left to spend this month, money in, spent and kept.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kunnash · Free budget notebook">
+<meta name="twitter:description" content="Log your salary and expenses and see what's left until payday. Free for everyone, no ads, no email needed. English, Français, العربية.">
+<meta name="twitter:image" content="https://kunnash.vercel.app/og.png">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -435,15 +450,6 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
 
     <section class="view" data-view="settings" aria-label="Settings" hidden>
       <div class="card set" id="accountCard"></div>
-      <div class="card set" id="legacyCard" hidden>
-        <h2 style="font-size:17px" data-i18n="legacyTitle">Bring over your old notebook</h2>
-        <p class="note" data-i18n="legacyText">Type the passcode you used before to move those entries into this account.</p>
-        <form class="subform" id="legacyForm" novalidate>
-          <input class="in" id="legacyPass" type="password" autocomplete="off" data-i18n-ph="legacyPh" placeholder="Old passcode">
-          <p class="err" id="legacyErr" hidden></p>
-          <button class="btn" type="submit" data-i18n="legacyBtn">Move them here</button>
-        </form>
-      </div>
       <div class="card set">
         <h2 style="font-size:17px" data-i18n="salary">Salary</h2>
         <div class="two">
@@ -474,6 +480,7 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
           <button class="ghost danger" type="button" id="wipe" data-i18n="eraseAll">Erase all entries</button>
         </div>
         <p class="note"><a class="textbtn" href="/privacy" target="_blank" rel="noopener" data-i18n="privacy">Privacy</a></p>
+        <p class="note" id="contactNote"></p>
       </div>
     </section>
   </main>
@@ -546,7 +553,7 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
       railNote: "Free, no ads. Your notebook, your numbers.", prevMonth: "Previous month", nextMonth: "Next month",
       syncLoading: "Loading", synced: "Synced", saving: "Saving", offline: "Offline, will sync", thisDevice: "This device", claudeAcct: "Claude account", signedOut: "Signed out", setupNeeded: "Setup needed",
       heroNow: "{m} so far", heroPast: "{m}, closed", heroFuture: "{m} ahead",
-      leftToSpend: "Left to spend", overSalary: "Over your salary by", spentSoFar: "Spent so far", pctUsed: "{p}% of money in used", ofBudget: "of {x} budget",
+      leftToSpend: "Left to spend", overSalary: "Over your salary by", spentSoFar: "Spent so far", pctUsed: "{p}% of your money spent", ofBudget: "of {x} budget",
       moneyIn: "Money in", spent: "Spent", perDay: "Per day left", entries: "Entries", kept: "Kept",
       payday: "Payday", logSalary: "Payday? Log your {m} salary", salaryAmount: "Salary amount", paidOn: "Paid on", addSalary: "Add salary", salaryIn: "Salary {x} is in", edit: "Edit",
       typeSalary: "Type your salary first", salaryAdded: "Salary added", oneSec: "One second, still loading.",
@@ -566,7 +573,6 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
       claudeTitle: "Saved to your Claude account", claudeText: "This preview saves to your Claude account. Your public site keeps its own notebooks.",
       noStorage: "The site has no storage yet, so entries stay on this device.",
       changePw: "Change password", currentPw: "Current password", newPw: "New password", updatePw: "Update password", pwChanged: "Password changed", logOut: "Log out", deleteAcct: "Delete my account", deleteText: "This deletes your account and every entry for good. Type your password to confirm.", deleteForever: "Delete forever", deleted: "Account deleted", syncNow: "Sync now",
-      legacyTitle: "Bring over your old notebook", legacyText: "Type the passcode you used before to move those entries into this account.", legacyPh: "Old passcode", legacyBtn: "Move them here", legacyDone: "Moved {n} entries", legacyWrong: "That passcode isn't right.",
       supportTitle: "Keep Kunnash free", supportText: "Kunnash is free for everyone, with no ads. If it helps you, you can chip in to cover the hosting. It's completely optional.", supportBtn: "Support Kunnash", usedBy: "Used by {n} people", homeDonate: "Kunnash is free and ad-free.", homeDonateLink: "Help keep it running",
       category: "Category", date: "Date", note: "Note", amount: "Amount", close: "Close", expense: "Expense", incomeK: "Income", goingOut: "Money going out", comingIn: "Money coming in",
       wouldHave: "You'd have {x} left in {m}", spendingBecomes: "{m} spending becomes {x}", notePhOut: "Marjane, taxi", notePhIn: "Salary, freelance, gift",
@@ -575,7 +581,7 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
       tagline: "Your salary and expenses in one neon notebook.", pitch1: "Free for everyone, no ads", pitch2: "No email or phone number needed", pitch3: "Your numbers stay private, on all your devices",
       signUp: "Create account", username: "Username", usernameHint: "3 to 24 letters (a to z), numbers, dots or underscores", password: "Password", passwordHint: "At least 8 characters",
       createNotebook: "Create my notebook", forgot: "Forgot your password?", resetTitle: "Reset your password", recoveryCode: "Recovery code", resetBtn: "Reset and log in", back: "Back", deviceOnly: "Use it on this device only",
-      e_bad_username: "Usernames use 3 to 24 letters (a to z), numbers, dots or underscores.", e_weak_password: "Use at least 8 characters.", e_taken: "That username is taken. Try another.", e_wrong_login: "Username or password isn't right.", e_wrong_code: "That recovery code doesn't match.", e_too_many: "Too many tries. Wait a few minutes and try again.", e_network: "Can't reach Kunnash. Check your connection.", e_wrong_password: "That password isn't right.", e_generic: "Something went wrong. Try again.",
+      e_bad_username: "Usernames use 3 to 24 letters (a to z), numbers, dots or underscores.", e_weak_password: "Use at least 8 characters.", e_taken: "That username is taken. Try another.", e_wrong_login: "Username or password isn't right.", e_wrong_code: "That recovery code doesn't match.", e_too_many: "Too many tries. Wait a few minutes and try again.", e_network: "Can't reach Kunnash. Check your connection.", e_wrong_password: "That password isn't right.", e_generic: "Something went wrong. Try again.", notSaved: "Not saved", fullAccount: "Your notebook is full (5,000 entries). Download a backup, then erase old entries to add more.", fullSite: "Kunnash is full right now. Your entries stay on this device and will save later.", fullDay: "You've saved a lot today. The rest stays on this device and saves tomorrow.", slowDown: "Saving too fast. Trying again in a minute.", e_signups_paused: "Sign-ups are paused for today. Try again tomorrow, or use Kunnash on this device for now.", contactLine: "Questions or ideas? Write to",
       saveCodeTitle: "Save your recovery code", saveCodeText: "There's no email on your account, so this code is the only way back in if you forget your password. Take a screenshot or write it down somewhere safe.", newCodeTitle: "Your new recovery code", newCodeText: "Your old code no longer works. Save this one somewhere safe.", copy: "Copy", copied: "Copied", savedIt: "I saved it somewhere safe", openNotebook: "Open my notebook",
       welcomeBack: "Welcome back, @{n}", welcome: "Welcome, @{n}", loggedOut: "Logged out",
       cats: ["Rent & home", "Groceries", "Transport", "Bills & phone", "Eating out", "Health", "Shopping", "Other"]
@@ -605,7 +611,6 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
       claudeTitle: "Enregistré dans ton compte Claude", claudeText: "Cet aperçu enregistre dans ton compte Claude. Le site public garde ses propres carnets.",
       noStorage: "Le site n'a pas encore de stockage : tes opérations restent sur cet appareil.",
       changePw: "Changer le mot de passe", currentPw: "Mot de passe actuel", newPw: "Nouveau mot de passe", updatePw: "Mettre à jour", pwChanged: "Mot de passe changé", logOut: "Se déconnecter", deleteAcct: "Supprimer mon compte", deleteText: "Ceci supprime définitivement ton compte et toutes tes opérations. Tape ton mot de passe pour confirmer.", deleteForever: "Supprimer définitivement", deleted: "Compte supprimé", syncNow: "Synchroniser",
-      legacyTitle: "Récupère ton ancien carnet", legacyText: "Tape l'ancien code d'accès pour transférer ces opérations dans ce compte.", legacyPh: "Ancien code", legacyBtn: "Transférer", legacyDone: "{n} opérations transférées", legacyWrong: "Ce code n'est pas bon.",
       supportTitle: "Garde Kunnash gratuit", supportText: "Kunnash est gratuit pour tout le monde, sans pub. S'il t'aide, tu peux participer aux frais d'hébergement. C'est totalement facultatif.", supportBtn: "Soutenir Kunnash", usedBy: "Utilisé par {n} personnes", homeDonate: "Kunnash est gratuit et sans pub.", homeDonateLink: "Aide à le faire tourner",
       category: "Catégorie", date: "Date", note: "Note", amount: "Montant", close: "Fermer", expense: "Dépense", incomeK: "Revenu", goingOut: "Argent qui sort", comingIn: "Argent qui entre",
       wouldHave: "Il te resterait {x} en {m}", spendingBecomes: "Les dépenses de {m} passent à {x}", notePhOut: "Marjane, taxi", notePhIn: "Salaire, freelance, cadeau",
@@ -614,7 +619,7 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
       tagline: "Ton salaire et tes dépenses dans un carnet néon.", pitch1: "Gratuit pour tous, sans pub", pitch2: "Pas besoin d'e-mail ni de téléphone", pitch3: "Tes chiffres restent privés, sur tous tes appareils",
       signUp: "Créer un compte", username: "Nom d'utilisateur", usernameHint: "3 à 24 lettres (a à z), chiffres, points ou tirets bas", password: "Mot de passe", passwordHint: "Au moins 8 caractères",
       createNotebook: "Créer mon carnet", forgot: "Mot de passe oublié ?", resetTitle: "Réinitialiser le mot de passe", recoveryCode: "Code de secours", resetBtn: "Réinitialiser et se connecter", back: "Retour", deviceOnly: "Utiliser sur cet appareil seulement",
-      e_bad_username: "Le nom utilise 3 à 24 lettres (a à z), chiffres, points ou tirets bas.", e_weak_password: "Utilise au moins 8 caractères.", e_taken: "Ce nom est déjà pris. Essaie un autre.", e_wrong_login: "Nom ou mot de passe incorrect.", e_wrong_code: "Ce code de secours ne correspond pas.", e_too_many: "Trop d'essais. Attends quelques minutes puis réessaie.", e_network: "Impossible de joindre Kunnash. Vérifie ta connexion.", e_wrong_password: "Mot de passe incorrect.", e_generic: "Un problème est survenu. Réessaie.",
+      e_bad_username: "Le nom utilise 3 à 24 lettres (a à z), chiffres, points ou tirets bas.", e_weak_password: "Utilise au moins 8 caractères.", e_taken: "Ce nom est déjà pris. Essaie un autre.", e_wrong_login: "Nom ou mot de passe incorrect.", e_wrong_code: "Ce code de secours ne correspond pas.", e_too_many: "Trop d'essais. Attends quelques minutes puis réessaie.", e_network: "Impossible de joindre Kunnash. Vérifie ta connexion.", e_wrong_password: "Mot de passe incorrect.", e_generic: "Un problème est survenu. Réessaie.", notSaved: "Non enregistré", fullAccount: "Ton carnet est plein (5 000 opérations). Télécharge une sauvegarde, puis efface les anciennes pour en ajouter.", fullSite: "Kunnash est plein pour le moment. Tes opérations restent sur cet appareil et seront enregistrées plus tard.", fullDay: "Tu as beaucoup enregistré aujourd'hui. Le reste reste sur cet appareil et sera enregistré demain.", slowDown: "Enregistrement trop rapide. Nouvel essai dans une minute.", e_signups_paused: "Les inscriptions sont en pause pour aujourd'hui. Réessaie demain, ou utilise Kunnash sur cet appareil en attendant.", contactLine: "Une question ou une idée ? Écris à",
       saveCodeTitle: "Garde ton code de secours", saveCodeText: "Ton compte n'a pas d'e-mail : ce code est le seul moyen de revenir si tu oublies ton mot de passe. Fais une capture d'écran ou note-le en lieu sûr.", newCodeTitle: "Ton nouveau code de secours", newCodeText: "L'ancien code ne marche plus. Garde celui-ci en lieu sûr.", copy: "Copier", copied: "Copié", savedIt: "Je l'ai gardé en lieu sûr", openNotebook: "Ouvrir mon carnet",
       welcomeBack: "Content de te revoir, @{n}", welcome: "Bienvenue, @{n}", loggedOut: "Déconnecté",
       cats: ["Loyer & maison", "Courses", "Transport", "Factures & téléphone", "Restos & cafés", "Santé", "Shopping", "Autre"]
@@ -644,7 +649,6 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
       claudeTitle: "محفوظ في حساب Claude", claudeText: "هذه المعاينة تحفظ في حساب Claude. الموقع العام يحتفظ بكنانيشه الخاصة.",
       noStorage: "الموقع بدون تخزين حالياً، لذا تبقى عملياتك على هذا الجهاز.",
       changePw: "تغيير كلمة المرور", currentPw: "كلمة المرور الحالية", newPw: "كلمة المرور الجديدة", updatePw: "تحديث", pwChanged: "تم تغيير كلمة المرور", logOut: "تسجيل الخروج", deleteAcct: "حذف حسابي", deleteText: "سيُحذف حسابك وكل عملياتك نهائياً. اكتب كلمة المرور للتأكيد.", deleteForever: "حذف نهائي", deleted: "تم حذف الحساب", syncNow: "مزامنة الآن",
-      legacyTitle: "استرجع كناشك القديم", legacyText: "اكتب رمز الدخول القديم لنقل تلك العمليات إلى هذا الحساب.", legacyPh: "الرمز القديم", legacyBtn: "انقلها هنا", legacyDone: "تم نقل {n} عملية", legacyWrong: "هذا الرمز غير صحيح.",
       supportTitle: "ساهم في بقاء كناش مجانياً", supportText: "كناش مجاني للجميع وبدون إعلانات. إذا كان مفيداً لك، يمكنك المساهمة في تكاليف الاستضافة. المساهمة اختيارية تماماً.", supportBtn: "ادعم كناش", usedBy: "يستعمله {n} شخص", homeDonate: "كناش مجاني وبدون إعلانات.", homeDonateLink: "ساعد في استمراره",
       category: "الفئة", date: "التاريخ", note: "ملاحظة", amount: "المبلغ", close: "إغلاق", expense: "مصروف", incomeK: "مدخول", goingOut: "فلوس خارجة", comingIn: "فلوس داخلة",
       wouldHave: "سيتبقى لك {x} في {m}", spendingBecomes: "ستصبح مصاريف {m} {x}", notePhOut: "مرجان، طاكسي", notePhIn: "راتب، عمل حر، هدية",
@@ -653,12 +657,13 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
       tagline: "راتبك ومصاريفك في كناش واحد.", pitch1: "مجاني للجميع وبدون إعلانات", pitch2: "لا حاجة لبريد إلكتروني أو رقم هاتف", pitch3: "أرقامك تبقى خاصة بك، على كل أجهزتك",
       signUp: "إنشاء حساب", username: "اسم المستخدم", usernameHint: "من 3 إلى 24 حرفاً لاتينياً (a إلى z) أو أرقاماً أو نقطة أو _", password: "كلمة المرور", passwordHint: "8 أحرف على الأقل",
       createNotebook: "أنشئ كناشي", forgot: "نسيت كلمة المرور؟", resetTitle: "إعادة تعيين كلمة المرور", recoveryCode: "رمز الاسترجاع", resetBtn: "إعادة التعيين والدخول", back: "رجوع", deviceOnly: "استعمله على هذا الجهاز فقط",
-      e_bad_username: "اسم المستخدم من 3 إلى 24 حرفاً لاتينياً أو أرقاماً أو نقطة أو _.", e_weak_password: "استعمل 8 أحرف على الأقل.", e_taken: "هذا الاسم مستعمل. جرّب اسماً آخر.", e_wrong_login: "اسم المستخدم أو كلمة المرور غير صحيحة.", e_wrong_code: "رمز الاسترجاع غير مطابق.", e_too_many: "محاولات كثيرة. انتظر بضع دقائق ثم حاول.", e_network: "تعذر الاتصال بكناش. تحقق من اتصالك.", e_wrong_password: "كلمة المرور غير صحيحة.", e_generic: "حدث خطأ. حاول مجدداً.",
+      e_bad_username: "اسم المستخدم من 3 إلى 24 حرفاً لاتينياً أو أرقاماً أو نقطة أو _.", e_weak_password: "استعمل 8 أحرف على الأقل.", e_taken: "هذا الاسم مستعمل. جرّب اسماً آخر.", e_wrong_login: "اسم المستخدم أو كلمة المرور غير صحيحة.", e_wrong_code: "رمز الاسترجاع غير مطابق.", e_too_many: "محاولات كثيرة. انتظر بضع دقائق ثم حاول.", e_network: "تعذر الاتصال بكناش. تحقق من اتصالك.", e_wrong_password: "كلمة المرور غير صحيحة.", e_generic: "حدث خطأ. حاول مجدداً.", notSaved: "غير محفوظ", fullAccount: "كناشك ممتلئ (5000 عملية). نزّل نسخة احتياطية ثم امسح العمليات القديمة لإضافة المزيد.", fullSite: "كناش ممتلئ حالياً. عملياتك تبقى على هذا الجهاز وستُحفظ لاحقاً.", fullDay: "حفظت الكثير اليوم. الباقي يبقى على هذا الجهاز وسيُحفظ غداً.", slowDown: "الحفظ سريع جداً. سنحاول مجدداً بعد دقيقة.", e_signups_paused: "التسجيل متوقف اليوم. حاول غداً، أو استعمل كناش على هذا الجهاز مؤقتاً.", contactLine: "سؤال أو فكرة؟ راسلنا على",
       saveCodeTitle: "احتفظ برمز الاسترجاع", saveCodeText: "حسابك بدون بريد إلكتروني، لذا هذا الرمز هو الطريقة الوحيدة للعودة إذا نسيت كلمة المرور. التقط صورة للشاشة أو اكتبه في مكان آمن.", newCodeTitle: "رمز الاسترجاع الجديد", newCodeText: "الرمز القديم لم يعد يعمل. احتفظ بهذا في مكان آمن.", copy: "نسخ", copied: "تم النسخ", savedIt: "احتفظت به في مكان آمن", openNotebook: "افتح كناشي",
       welcomeBack: "مرحباً بعودتك، @{n}", welcome: "مرحباً، @{n}", loggedOut: "تم تسجيل الخروج",
       cats: ["الكراء والسكن", "مشتريات البيت", "النقل", "الفواتير والهاتف", "المطاعم والمقاهي", "الصحة", "التسوق", "أخرى"]
     }
   };
+  const CONTACT = "dibt.chakibb@gmail.com";
   const LOCALES = { en: "en-US", fr: "fr-FR", ar: "ar-MA" };
   const LANG_NAMES = { en: "English", fr: "Français", ar: "العربية" };
   let LANG = "en";
@@ -729,6 +734,8 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
     $$("[data-i18n-ph]").forEach((el) => (el.placeholder = t(el.dataset.i18nPh)));
     $$("[data-i18n-aria]").forEach((el) => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
     $("fDel").textContent = t("del");
+    const cn = $("contactNote"); cn.textContent = t("contactLine") + " ";
+    const ml = document.createElement("a"); ml.className = "textbtn"; ml.href = "mailto:" + CONTACT; ml.textContent = CONTACT; ml.dir = "ltr"; cn.appendChild(ml);
     paintLangs();
     paintDonate();
   }
@@ -784,7 +791,7 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
   // ---------- storage: Claude artifact store, your Kunnash account, or this device ----------
   const ls = { get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }, del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
   const LOCAL = "kunnash.local", SESSION = "kunnash.session", CHOICE = "kunnash.choice";
-  const store = { mode: "pending", db: null, downloads: null, session: ls.get(SESSION, null), queue: [], busy: false, timer: null, info: { accounts: false, donateUrl: "", legacy: false, people: 0 }, syncCls: "", syncKey: "syncLoading" };
+  const store = { mode: "pending", db: null, downloads: null, session: ls.get(SESSION, null), queue: [], busy: false, timer: null, info: { accounts: false, donateUrl: "", people: 0 }, syncCls: "", syncKey: "syncLoading" };
   const userKey = (s) => "kunnash.u." + (s ? s.name : "");
   const cacheKey = () => (store.mode === "cloud" ? userKey(store.session) + ".cache" : LOCAL);
   const queueKey = () => userKey(store.session) + ".queue";
@@ -843,6 +850,9 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
     try {
       const r = await call("/api/data", "POST", { ops: batch });
       if (r.status === 401) { store.busy = false; signedOut(); return; }
+      if (r.status === 400) { store.queue = store.queue.slice(batch.length); ls.set(queueKey(), store.queue); store.busy = false; flushSoon(0); return; } // can never succeed
+      const why = { too_many_entries: "fullAccount", storage_full: "fullSite", daily_limit: "fullDay", too_many: "slowDown" }[r.data && r.data.error];
+      if (why) { store.busy = false; setSync("off", "notSaved"); toast(t(why), "x"); flushSoon(why === "slowDown" ? 60000 : 600000); return; } // kept on this device, tried again later
       if (!r.ok) throw new Error("save " + r.status);
       store.queue = store.queue.slice(batch.length); ls.set(queueKey(), store.queue);
       store.busy = false;
@@ -1332,7 +1342,6 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
         c.appendChild(row);
       }
     }
-    $("legacyCard").hidden = !(m === "cloud" && store.info.legacy);
     $("dataNote").textContent = m === "cloud" ? t("dataCloud") : t("dataLocal");
   }
   function button(cls, icon, label, fn) { const b = document.createElement("button"); b.type = "button"; b.className = cls; b.innerHTML = ico(icon) + "<span></span>"; b.querySelector("span").textContent = label; b.addEventListener("click", fn); return b; }
@@ -1360,16 +1369,6 @@ html[lang="ar"] .empty strong { font-family: var(--f-ar); }
     forgetSession(); state.entries = []; state.settings = normSettings(null); render();
     toast(t("loggedOut"), "logout"); openGate("login");
   }
-  $("legacyForm").addEventListener("submit", async (ev) => {
-    ev.preventDefault();
-    const err = $("legacyErr"); err.hidden = true;
-    await flush();
-    const r = await call("/api/data", "POST", { action: "import_legacy", passcode: $("legacyPass").value }).catch(() => null);
-    if (!r) { err.textContent = t("e_network"); err.hidden = false; return; }
-    if (!r.ok) { err.textContent = r.status === 401 && r.data.error === "wrong_passcode" ? t("legacyWrong") : t("e_" + (r.data.error || "generic")); err.hidden = false; return; }
-    store.info.legacy = false; $("legacyPass").value = "";
-    toast(t("legacyDone", { n: r.data.imported || 0 }), "check"); renderAccount(); pull();
-  });
 
   // ---------- support ----------
   function paintDonate() {

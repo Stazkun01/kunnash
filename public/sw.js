@@ -1,6 +1,6 @@
 // Kunnash service worker: opens instantly and works offline once installed.
 // Your data never goes through here; /api is always live.
-const CACHE = "kunnash-v4";
+const CACHE = "kunnash-v5";
 const SHELL = ["/", "/manifest.webmanifest", "/icon.svg", "/apple-touch-icon.png", "/icon-512.png", "/icon-192.png"];
 
 self.addEventListener("install", (e) => {
